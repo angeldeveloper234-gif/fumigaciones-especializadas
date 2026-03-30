@@ -121,50 +121,50 @@ export const TESTIMONIALS: Testimonial[] = [
   {
     id: 1,
     name: "Jess Dector",
-    subtitle: "Local Guide · 182 opiniones",
+    subtitle: "Local Guide · 182 opiniones · 98 fotos",
     rating: 5,
-    text: "La atención es muy profesional y puntual. Solicité aplicar la garantía y respondieron rápido y de manera eficiente. Estoy totalmente satisfecho, lo recomiendo y los contrataría de nuevo. El costo lo vale.",
-    image: "https://lh3.googleusercontent.com/a-/ALV-UjXbJsHQcVV-GQ894pSfjDETlLG70eygiJO9UWAVxN9iSjJebftjBQ=w40-h40-p-rp-mo-ba4-br100"
-  },
-  {
-    id: 7,
-    name: "Jennifer L.",
-    subtitle: "Reseña de Facebook",
-    rating: 5,
-    text: "Excelente producto, el veneno es buenísimo. El costo en comparación con el resultado la verdad es que vale la pena. Eficaz y rápido. 5 estrellas.",
-    image: "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png"
-  },
-  {
-    id: 8,
-    name: "Mariana G.",
-    subtitle: "Reseña de Facebook",
-    rating: 5,
-    text: "Es la segunda vez que compro sus productos y me han funcionado muy bien. Te especifican la aplicación y lo que contiene. Lo recomiendo mucho 10/10.",
-    image: "https://cdn.pixabay.com/photo/2014/04/02/10/25/man-303792_1280.png"
-  },
-  {
-    id: 9,
-    name: "Ele V.",
-    subtitle: "Reseña de Facebook",
-    rating: 5,
-    text: "Recomiendo ampliamente este producto, la verdad elimina desde la primera aplicación.",
-    image: "https://cdn.pixabay.com/photo/2016/08/31/11/54/user-1633249_1280.png"
+    text: "La atención es muy profesional y puntual, en ningún momento me hicieron esperar y siempre se mantuvieron comunicados. En mi caso solicité aplicar la garantía y respondieron rápido y de manera eficiente.",
+    image: "https://lh3.googleusercontent.com/a-/ALV-UjXbJsHQcVV-GQ894pSfjDETlLG70eygiJO9UWAVxN9iSjJebftjBQ=w32-h32-p-rp-mo-ba4-br100"
   },
   {
     id: 2,
-    name: "Martha Alicia Medina",
-    subtitle: "10 opiniones",
+    name: "Martha Alicia Medina McCormick",
+    subtitle: "10 opiniones · 1 foto",
     rating: 5,
-    text: "Muy profesionales y razonables, excelente servicio al cliente.",
-    image: "https://lh3.googleusercontent.com/a/ACg8ocKSLQrcFUMHbXoaNQyu1Vx4zvufMuSqHsCkVpa6AYB4RxvPYQ=w40-h40-p-rp-mo-br100"
+    text: "Muy profesionales y razonables, excelente servicio al cliente",
+    image: "https://lh3.googleusercontent.com/a/ACg8ocKSLQrcFUMHbXoaNQyu1Vx4zvufMuSqHsCkVpa6AYB4RxvPYQ=w32-h32-p-rp-mo-br100"
   },
   {
     id: 3,
     name: "Jenny Luna",
-    subtitle: "8 opiniones",
+    subtitle: "8 opiniones · 1 foto",
     rating: 5,
-    text: "Súper profesional, me resolvieron mi problema, me gustó mucho como me explicaron los procesos, me quitaron toda mi plaga con garantía.",
-    image: "https://lh3.googleusercontent.com/a-/ALV-UjX_71YYWnUbT2-LJle8gQ4SWuV6JkUPkQhNE0SLJeZToG6_RtQ=w40-h40-p-rp-mo-br100"
+    text: "Súper profesional, me resolvieron mi problema, me gustó mucho como me explicaron los procesos, me quitaron toda mi plaga con garantía",
+    image: "https://lh3.googleusercontent.com/a-/ALV-UjX_71YYWnUbT2-LJle8gQ4SWuV6JkUPkQhNE0SLJeZToG6_RtQ=w32-h32-p-rp-mo-br100"
+  },
+  {
+    id: 4,
+    name: "JuanPablo Salcedo",
+    subtitle: "1 opinión",
+    rating: 5,
+    text: "Es un buen servicio, profesional.",
+    image: "https://lh3.googleusercontent.com/a/ACg8ocIyS0lKe3xp7Fz_-rPMghN_4rf-F6hoKoRqFZ1X5Zg0_E6_dg=w32-h32-p-rp-mo-br100"
+  },
+  {
+    id: 5,
+    name: "Peter Neri",
+    subtitle: "Local Guide · 74 opiniones · 14 fotos",
+    rating: 5,
+    text: "Muy bien servicio, rápido, eficaz y buen precio",
+    image: "https://lh3.googleusercontent.com/a-/ALV-UjVPTe9lZuk7YMHSIDz_FLzWM1nimFycgu5EuDN38XylOlxjs7_k=w32-h32-p-rp-mo-ba4-br100"
+  },
+  {
+    id: 6,
+    name: "Oscar Ruiz Zea",
+    subtitle: "Local Guide · 21 opiniones · 4 fotos",
+    rating: 5,
+    text: "Excelente servicio y atención a los detalles, lo recomiendo",
+    image: "https://lh3.googleusercontent.com/a-/ALV-UjXd-9Uwm_E4SoFpl2--usZTmOhnDYWvBQ9opjo9gxSz6pWHg4Ah=w32-h32-p-rp-mo-ba2-br100"
   }
 ];
 

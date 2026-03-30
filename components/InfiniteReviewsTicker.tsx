@@ -50,7 +50,7 @@ const InfiniteReviewsTicker: React.FC = () => {
                                     </div>
                                     <div>
                                         <h4 className="font-bold text-gray-900 text-sm tracking-tight">{review.author_name}</h4>
-                                        <span className="text-[10px] text-gray-400 font-medium uppercase tracking-wider">{review.time}</span>
+                                        <span className="text-[10px] text-gray-500 font-medium tracking-tight line-clamp-1">{review.time}</span>
                                     </div>
                                 </div>
                                 <div className="flex">
