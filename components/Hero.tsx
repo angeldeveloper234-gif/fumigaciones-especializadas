@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { ArrowRight, CheckCircle2, ShieldCheck, PlayCircle, Star } from 'lucide-react';
+import { ArrowRight, ShieldCheck, PlayCircle, Star, Phone, CheckCircle } from 'lucide-react';
 import LocationModal from './LocationModal';
+import { CONTACT_INFO } from '../constants';
 
 const Hero: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -15,109 +16,110 @@ const Hero: React.FC = () => {
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-8 items-center">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           
           {/* Content Column */}
-          <div className="w-full text-white space-y-8 lg:pr-10">
-            <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md px-4 py-2 rounded-full border border-white/20">
-              <span className="w-2 h-2 rounded-full bg-brand-yellow animate-pulse shadow-glow"></span>
-              <span className="text-brand-yellow font-bold text-xs uppercase tracking-widest">Disponibilidad 24/7</span>
-            </div>
-            
-            <h1 className="text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight tracking-tight">
-              Expertos en <br />
-              <span className="text-brand-red">
-                Control de Plagas
-              </span>
-              <br /> para el Sector Gastronómico y Hotelero.
-            </h1>
-            
-            <p className="text-lg md:text-xl text-gray-300 max-w-xl leading-relaxed font-light border-l-2 border-brand-red pl-6">
-              Soluciones definitivas, seguras y de acción rápida para proteger la reputación de tu negocio. Confía en quienes ya protegen a más de 300 restaurantes a nivel nacional.
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-4 pt-4">
-              <button
-                onClick={() => setIsModalOpen(true)}
-                className="group px-8 py-4 rounded-full font-bold text-brand-dark bg-white hover:bg-brand-yellow hover:text-brand-dark transition-all flex items-center justify-center gap-2 shadow-lg"
-              >
-                WhatsApp inmediato 
-                <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
-              </button>
-              <a
-                href="#contacto"
-                className="px-8 py-4 rounded-full font-bold text-white border-2 border-brand-red hover:bg-brand-red transition-all flex items-center justify-center gap-2"
-              >
-                Cotizar ahora
+          <div className="w-full text-white space-y-8">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+              <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md px-4 py-2 rounded-full border border-white/20">
+                <span className="w-2 h-2 rounded-full bg-brand-yellow animate-pulse shadow-glow"></span>
+                <span className="text-brand-yellow font-bold text-xs uppercase tracking-widest">Disponibilidad Inmediata</span>
+              </div>
+              <a href={`tel:${CONTACT_INFO.phone}`} className="flex items-center gap-2 text-white hover:text-brand-yellow transition-colors group">
+                <div className="bg-brand-red p-2 rounded-full group-hover:scale-110 transition-transform">
+                  <Phone size={16} fill="white" />
+                </div>
+                <span className="font-black text-xl tracking-tight">{CONTACT_INFO.phone}</span>
               </a>
             </div>
+            
+            <h1 className="text-5xl lg:text-6xl xl:text-7xl font-black leading-[1.1] tracking-tighter">
+              Fumigaciones <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-red to-orange-500">
+                Especializadas
+              </span>
+              <br /> en el Mismo Día.
+            </h1>
+            
+            <p className="text-xl text-gray-300 max-w-xl leading-relaxed font-medium">
+              Protección total certificada para restaurantes, hoteles y hogares. <span className="text-white font-bold">Sin químicos tóxicos</span> y con resultados garantizados desde la primera visita.
+            </p>
 
-            <div className="pt-8 flex flex-col sm:flex-row gap-8 border-t border-white/10 mt-8">
-              <div className="flex items-center gap-3">
-                <ShieldCheck className="text-brand-yellow h-10 w-10 p-2 bg-brand-yellow/10 rounded-lg" />
-                <div className="text-sm">
-                    <p className="font-bold text-white text-base">Licencia Sanitaria</p>
-                    <p className="text-gray-400">Vigente y Certificada</p>
-                </div>
+            <div className="grid sm:grid-cols-2 gap-4">
+              <button
+                onClick={() => setIsModalOpen(true)}
+                className="group px-8 py-5 rounded-2xl font-black text-brand-dark bg-brand-yellow hover:bg-white transition-all flex items-center justify-center gap-2 shadow-xl shadow-brand-yellow/10"
+              >
+                Servicio el Mismo Día
+                <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
+              </button>
+              <button
+                onClick={() => setIsModalOpen(true)}
+                className="px-8 py-5 rounded-2xl font-black text-white border-2 border-white/20 hover:border-brand-red hover:bg-brand-red transition-all flex items-center justify-center gap-2 backdrop-blur-sm"
+              >
+                Inspección Inmediata
+              </button>
+            </div>
+
+            <div className="pt-8 flex flex-wrap gap-6 items-center border-t border-white/10 mt-8">
+              <div className="flex items-center gap-2">
+                <CheckCircle className="text-brand-yellow" size={20} />
+                <span className="text-sm font-bold text-gray-300">Licencia Sanitaria Vigente</span>
               </div>
-              <div className="flex items-center gap-3">
-                 <CheckCircle2 className="text-brand-yellow h-10 w-10 p-2 bg-brand-yellow/10 rounded-lg" />
-                <div className="text-sm">
-                    <p className="font-bold text-white text-base">Productos EPA</p>
-                    <p className="text-gray-400">Eco-Friendly</p>
-                </div>
+              <div className="flex items-center gap-2">
+                <CheckCircle className="text-brand-yellow" size={20} />
+                <span className="text-sm font-bold text-gray-300">Certificado por Cofepris</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <CheckCircle className="text-brand-yellow" size={20} />
+                <span className="text-sm font-bold text-gray-300">Productos Eco-Friendly</span>
               </div>
             </div>
           </div>
           
-          {/* Video / Visual Column */}
-          <div className="w-full relative mt-10 lg:mt-0 lg:pl-10">
+          {/* Visual Column */}
+          <div className="w-full relative">
             {/* Main Image Container */}
-            <div className="relative rounded-[2rem] overflow-hidden border border-white/10 shadow-2xl group cursor-pointer" onClick={() => setIsVideoModalOpen(true)}>
+            <div className="relative rounded-[2.5rem] overflow-hidden border border-white/10 shadow-2xl group cursor-pointer aspect-[4/5] lg:aspect-auto lg:h-[700px]" onClick={() => setIsVideoModalOpen(true)}>
                 <img 
-                    src="/images/hero_kitchen.png" 
-                    alt="Cocina Industrial Impecable"
-                    className="w-full h-auto lg:h-[600px] object-cover relative z-10 transition-transform duration-700 group-hover:scale-105"
+                    src="/professional_exterminator_technician_1776356171077.png" 
+                    alt="Técnico Profesional en Fumigación"
+                    className="w-full h-full object-cover relative z-10 transition-transform duration-1000 group-hover:scale-105"
                 />
 
-                {/* Overlay & Subtle Play (if video modal is still needed for something) */}
-                <div className="absolute inset-0 bg-brand-dark/20 group-hover:bg-brand-dark/0 transition-colors z-20 flex items-center justify-center">
-                    <div className="w-16 h-16 bg-brand-red text-white rounded-full flex items-center justify-center backdrop-blur-sm shadow-lg group-hover:scale-110 transition-transform">
-                        <PlayCircle size={32} />
+                {/* Glassmorphism Badge */}
+                <div className="absolute top-8 left-8 z-20">
+                  <div className="bg-black/30 backdrop-blur-md border border-white/20 p-4 rounded-2xl">
+                    <p className="text-brand-yellow font-black text-2xl">+300</p>
+                    <p className="text-white text-[10px] font-bold uppercase tracking-widest leading-tight">Restaurantes <br />Protegidos</p>
+                  </div>
+                </div>
+
+                <div className="absolute inset-0 bg-gradient-to-t from-brand-dark/80 via-transparent to-transparent z-20 flex items-end p-10">
+                    <div className="flex items-center gap-4">
+                      <div className="w-16 h-16 bg-brand-red text-white rounded-full flex items-center justify-center shadow-2xl animate-pulse">
+                          <PlayCircle size={32} />
+                      </div>
+                      <div>
+                        <p className="text-white font-black text-lg">Mira cómo trabajamos</p>
+                        <p className="text-gray-400 text-sm">Procesos certificados paso a paso</p>
+                      </div>
                     </div>
                 </div>
             </div>
 
-            {/* Floating Badge 1 */}
-            <div className="absolute -bottom-6 -left-6 lg:-left-12 bg-white p-5 rounded-2xl shadow-xl z-30 animate-float">
+            {/* Experience Card Floating */}
+            <div className="absolute -bottom-8 -right-8 lg:-right-12 bg-white p-6 rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.2)] z-30 animate-float hidden md:block">
                 <div className="flex items-center gap-4">
-                    <div className="flex -space-x-3">
-                        <img className="w-10 h-10 rounded-full border-2 border-white object-cover" src="https://lh3.googleusercontent.com/a-/ALV-UjXbJsHQcVV-GQ894pSfjDETlLG70eygiJO9UWAVxN9iSjJebftjBQ=w32-h32-p-rp-mo-ba4-br100" alt="Client" />
-                        <img className="w-10 h-10 rounded-full border-2 border-white object-cover" src="https://lh3.googleusercontent.com/a/ACg8ocKSLQrcFUMHbXoaNQyu1Vx4zvufMuSqHsCkVpa6AYB4RxvPYQ=w32-h32-p-rp-mo-br100" alt="Client" />
-                        <img className="w-10 h-10 rounded-full border-2 border-white object-cover" src="https://lh3.googleusercontent.com/a-/ALV-UjX_71YYWnUbT2-LJle8gQ4SWuV6JkUPkQhNE0SLJeZToG6_RtQ=w32-h32-p-rp-mo-br100" alt="Client" />
+                    <div className="w-14 h-14 bg-brand-yellow/10 rounded-2xl flex items-center justify-center text-brand-yellow">
+                        <ShieldCheck size={32} />
                     </div>
                     <div>
-                        <div className="flex text-brand-yellow">
-                            <Star size={16} fill="currentColor" />
-                            <Star size={16} fill="currentColor" />
-                            <Star size={16} fill="currentColor" />
-                            <Star size={16} fill="currentColor" />
-                            <Star size={16} fill="currentColor" />
+                        <div className="flex text-yellow-500 gap-0.5 mb-1">
+                            {[...Array(5)].map((_, i) => <Star key={i} size={14} fill="currentColor" />)}
                         </div>
-                        <p className="font-bold text-brand-dark text-sm mt-1">Clientes Satisfechos</p>
-                    </div>
-                </div>
-            </div>
-
-            {/* Floating Badge 2 */}
-            <div className="absolute top-10 -right-4 lg:-right-8 bg-brand-dark border border-white/20 p-4 rounded-xl shadow-2xl z-30 animate-float" style={{ animationDelay: '1s' }}>
-                <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 bg-brand-red/20 rounded-full flex items-center justify-center text-brand-red">
-                        <ShieldCheck size={24} />
-                    </div>
-                    <div>
-                        <p className="text-white font-bold text-sm">Garantía Total</p>
-                        <p className="text-gray-400 text-xs">Sin Plagas</p>
+                        <p className="font-black text-brand-dark leading-tight">Garantía por Escrito</p>
+                        <p className="text-gray-500 text-xs font-bold uppercase tracking-wider">Cero Plagas 100%</p>
                     </div>
                 </div>
             </div>
@@ -131,22 +133,21 @@ const Hero: React.FC = () => {
 
       {/* Fullscreen Video Modal */}
       {isVideoModalOpen && (
-          <div className="fixed inset-0 z-[100] bg-black/90 flex items-center justify-center p-4">
+          <div className="fixed inset-0 z-[100] bg-black/95 flex items-center justify-center p-4 backdrop-blur-xl">
               <button 
                 onClick={() => setIsVideoModalOpen(false)}
-                className="absolute top-6 right-6 text-white hover:text-brand-red transition-colors"
+                className="absolute top-8 right-8 text-white hover:text-brand-red transition-all p-2 hover:bg-white/10 rounded-full"
               >
-                  Cerrar (X)
+                  <ShieldCheck size={40} className="rotate-45" /> 
               </button>
-              <div className="w-full max-w-5xl rounded-2xl overflow-hidden shadow-2xl">
-                  <video 
-                      className="w-full h-auto max-h-[80vh]"
-                      controls
-                      autoPlay
-                  >
-                      <source src="/images/videoplayback.mp4" type="video/mp4" />
-                      Tu navegador no soporta el formato de video.
-                  </video>
+              <div className="w-full max-w-5xl aspect-video rounded-3xl overflow-hidden shadow-2xl border border-white/10">
+                  <iframe 
+                    className="w-full h-full"
+                    src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1" 
+                    title="Control de Plagas Profesional"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowFullScreen
+                  ></iframe>
               </div>
           </div>
       )}
@@ -154,4 +155,4 @@ const Hero: React.FC = () => {
   );
 };
 
-export default Hero;
+export default Hero;
