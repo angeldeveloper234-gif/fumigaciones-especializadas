@@ -1,69 +1,80 @@
 import React from 'react';
-import { ShieldCheck, FileCheck, Droplets, Award } from 'lucide-react';
+import { ShieldCheck, FileCheck, Droplets, Award, BadgeCheck } from 'lucide-react';
 
 const Certifications: React.FC = () => {
   return (
-    <section id="certificaciones" className="py-24 bg-white border-b border-gray-100">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col lg:flex-row gap-16 items-center">
+    <section id="certificaciones" className="py-24 bg-white overflow-hidden">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="flex flex-col lg:flex-row gap-20 items-center">
           
-          <div className="w-full lg:w-1/2">
-             <div className="inline-block bg-green-50 text-brand-green px-4 py-1.5 rounded-full text-sm font-bold mb-6">
-                100% Certificados
-             </div>
-            <h2 className="text-4xl font-bold text-brand-dark mb-6 tracking-tight">
-              Cumplimiento Normativo y Seguridad Sanitaria
-            </h2>
-            <p className="text-gray-600 text-lg mb-10 leading-relaxed">
-              Operamos bajo los estándares más estrictos de la industria. Entregamos documentación oficial válida para auditorías de COFEPRIS y Protección Civil.
-            </p>
+          <div className="w-full lg:w-1/2 space-y-10">
+            <div>
+              <span className="inline-block bg-brand-primary/10 text-brand-primary px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest mb-6 border border-brand-primary/20">
+                 Validación Oficial COFEPRIS
+              </span>
+              <h2 className="text-5xl lg:text-7xl font-black text-brand-dark tracking-tighter leading-none mb-8">
+                Autoridad en <br />
+                <span className="text-brand-primary">Bioseguridad</span>
+              </h2>
+              <p className="text-xl text-gray-500 font-medium leading-relaxed">
+                Operamos bajo los marcos legales más exigentes. Entregamos carpetas técnicas completas digitales y físicas para auditorías de salubridad inmediata.
+              </p>
+            </div>
             
-            <div className="grid sm:grid-cols-2 gap-6">
-              <div className="flex gap-4 items-start p-4 rounded-xl hover:bg-gray-50 transition-colors">
-                <div className="bg-brand-green/10 p-3 rounded-lg text-brand-green">
-                  <FileCheck size={24} />
+            <div className="grid sm:grid-cols-2 gap-8">
+              <div className="flex gap-5 items-start">
+                <div className="bg-brand-primary/5 p-4 rounded-2xl text-brand-primary border border-brand-primary/10">
+                  <FileCheck size={28} />
                 </div>
                 <div>
-                  <h4 className="font-bold text-brand-dark">Licencia Sanitaria</h4>
-                  <p className="text-sm text-gray-500 mt-1">Vigente y estatal.</p>
+                  <h4 className="font-black text-brand-dark text-lg">Licencia Federal</h4>
+                  <p className="text-sm text-gray-500 font-medium mt-1">SISP-04-26-MX Vigilancia permanente.</p>
                 </div>
               </div>
               
-              <div className="flex gap-4 items-start p-4 rounded-xl hover:bg-gray-50 transition-colors">
-                <div className="bg-brand-green/10 p-3 rounded-lg text-brand-green">
-                  <Droplets size={24} />
+              <div className="flex gap-5 items-start">
+                <div className="bg-brand-primary/5 p-4 rounded-2xl text-brand-primary border border-brand-primary/10">
+                  <Droplets size={28} />
                 </div>
                 <div>
-                  <h4 className="font-bold text-brand-dark">Insumos EPA</h4>
-                  <p className="text-sm text-gray-500 mt-1">Biodegradables y seguros.</p>
+                  <h4 className="font-black text-brand-dark text-lg">Químicos EPA</h4>
+                  <p className="text-sm text-gray-500 font-medium mt-1">Sustentables y Grado Alimenticio.</p>
                 </div>
               </div>
             </div>
           </div>
           
-          <div className="w-full lg:w-1/2 relative">
-             <div className="bg-brand-gray rounded-3xl p-8 lg:p-12 relative overflow-hidden">
-                <div className="relative z-10 text-center">
-                    <Award size={64} className="text-brand-yellow mx-auto mb-6" />
-                    <h3 className="text-2xl font-bold text-brand-dark mb-2">Garantía por Escrito</h3>
-                    <p className="text-gray-600 mb-8">Si la plaga persiste, regresamos sin costo adicional.</p>
-                    <div className="h-1 w-24 bg-brand-green mx-auto rounded-full"></div>
-                </div>
-                
-                {/* Decorative Pattern */}
-                <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(#212121 1px, transparent 1px)', backgroundSize: '16px 16px' }}></div>
-             </div>
-             
-             {/* Floating Badge */}
-             <div className="absolute -bottom-6 -left-6 bg-brand-dark text-white p-6 rounded-2xl shadow-xl max-w-xs hidden md:block">
-                <div className="flex items-center gap-3">
-                    <ShieldCheck size={32} className="text-brand-green" />
-                    <div>
-                        <p className="font-bold text-sm">Auditorías</p>
-                        <p className="text-xs text-gray-400">Documentación completa</p>
+          <div className="w-full lg:w-1/2 relative group">
+              <div className="bg-brand-dark rounded-[3rem] p-12 lg:p-20 relative overflow-hidden transition-all duration-700 hover:shadow-3xl">
+                 <div className="absolute top-0 right-0 w-64 h-64 bg-brand-primary/20 rounded-full blur-[100px]" />
+                 
+                 <div className="relative z-10 text-center space-y-6">
+                    <div className="w-24 h-24 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-8 border border-white/10 group-hover:scale-110 transition-transform duration-500">
+                        <Award size={48} className="text-brand-primary" />
                     </div>
-                </div>
-             </div>
+                    <h3 className="text-4xl font-black text-white leading-tight">Garantía por Escrito <br /> FE™ Protection</h3>
+                    <p className="text-gray-400 text-lg font-medium max-w-xs mx-auto">
+                        Si detectas una sola plaga después del servicio, regresamos sin costo en menos de 24h.
+                    </p>
+                    <div className="flex justify-center gap-2 pt-6">
+                        <BadgeCheck className="text-brand-primary" size={24} />
+                        <span className="font-black text-white uppercase tracking-widest text-xs">Póliza de Calidad 100%</span>
+                    </div>
+                 </div>
+              </div>
+              
+              {/* Stats Card Overlay */}
+              <div className="absolute -bottom-10 -right-6 lg:-right-10 bg-white p-8 rounded-3xl shadow-3xl max-w-xs border border-gray-100 hidden md:block group-hover:-translate-y-4 transition-transform duration-500">
+                 <div className="flex items-center gap-5">
+                    <div className="w-14 h-14 bg-brand-primary rounded-2xl flex items-center justify-center text-white shadow-xl shadow-brand-primary/30">
+                        <ShieldCheck size={32} />
+                    </div>
+                    <div>
+                        <p className="text-3xl font-black text-brand-dark leading-none">Zero</p>
+                        <p className="text-xs text-gray-400 font-bold uppercase tracking-widest">Incidentes Sanitarios</p>
+                    </div>
+                 </div>
+              </div>
           </div>
 
         </div>
@@ -72,4 +83,4 @@ const Certifications: React.FC = () => {
   );
 };
 
-export default Certifications;
+export default Certifications;

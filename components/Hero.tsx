@@ -1,158 +1,179 @@
-import React, { useState } from 'react';
-import { ArrowRight, ShieldCheck, PlayCircle, Star, Phone, CheckCircle } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ArrowRight, ShieldCheck, PlayCircle, Star, Phone, CheckCircle, Award, Target } from 'lucide-react';
 import LocationModal from './LocationModal';
-import { CONTACT_INFO } from '../constants';
+import { CONTACT_INFO, BRANCHES } from '../constants';
 
 const Hero: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
+  const [currentCityIndex, setCurrentCityIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentCityIndex((prev) => (prev + 1) % BRANCHES.length);
+    }, 3000);
+    return () => clearInterval(timer);
+  }, []);
 
   return (
     <section id="hero" className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden bg-brand-dark">
-      {/* Dynamic Background Pattern */}
+      {/* Background Elements */}
       <div className="absolute inset-0 z-0">
-        <div className="absolute top-0 right-0 w-3/4 h-3/4 bg-brand-red/10 rounded-full blur-[150px] -translate-y-1/2 translate-x-1/3"></div>
-        <div className="absolute bottom-0 left-0 w-1/2 h-1/2 bg-brand-yellow/5 rounded-full blur-[100px] translate-y-1/3 -translate-x-1/4"></div>
+        <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-brand-primary/10 rounded-full blur-[160px] -translate-y-1/2 translate-x-1/3" />
+        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-brand-primary/5 rounded-full blur-[120px] translate-y-1/3 -translate-x-1/4" />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+      <div className="relative z-10 max-w-7xl mx-auto px-6 w-full">
+        <div className="grid lg:grid-cols-2 gap-16 items-center">
           
-          {/* Content Column */}
-          <div className="w-full text-white space-y-8">
-            <div className="flex flex-col sm:flex-row sm:items-center gap-4">
-              <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md px-4 py-2 rounded-full border border-white/20">
-                <span className="w-2 h-2 rounded-full bg-brand-yellow animate-pulse shadow-glow"></span>
-                <span className="text-brand-yellow font-bold text-xs uppercase tracking-widest">Disponibilidad Inmediata</span>
+          {/* Content */}
+          <div className="w-full text-white space-y-10">
+            <motion.div 
+               initial={{ opacity: 0, y: 20 }}
+               animate={{ opacity: 1, y: 0 }}
+               className="inline-flex items-center gap-3 bg-white/5 backdrop-blur-xl px-5 py-2.5 rounded-full border border-white/10"
+            >
+              <span className="w-2.5 h-2.5 rounded-full bg-brand-primary animate-pulse shadow-[0_0_15px_rgba(229,57,53,0.5)]" />
+              <div className="flex items-center gap-2 text-xs font-black uppercase tracking-[0.2em]">
+                <span>Cobertura en</span>
+                <AnimatePresence mode="wait">
+                  <motion.span 
+                    key={BRANCHES[currentCityIndex].name}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    className="text-brand-primary"
+                  >
+                    {BRANCHES[currentCityIndex].name}
+                  </motion.span>
+                </AnimatePresence>
               </div>
-              <a href={`tel:${CONTACT_INFO.phone}`} className="flex items-center gap-2 text-white hover:text-brand-yellow transition-colors group">
-                <div className="bg-brand-red p-2 rounded-full group-hover:scale-110 transition-transform">
-                  <Phone size={16} fill="white" />
-                </div>
-                <span className="font-black text-xl tracking-tight">{CONTACT_INFO.phone}</span>
-              </a>
-            </div>
+            </motion.div>
             
-            <h1 className="text-5xl lg:text-6xl xl:text-7xl font-black leading-[1.1] tracking-tighter">
-              Fumigaciones <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-red to-orange-500">
-                Especializadas
+            <motion.h1 
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 }}
+              className="text-6xl lg:text-7xl xl:text-8xl font-black leading-[0.95] tracking-tighter"
+            >
+              Control de Plagas <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-br from-white via-white to-gray-500">
+                Avanzado para
               </span>
-              <br /> en el Mismo Día.
-            </h1>
+              <br />
+              <span className="text-brand-primary italic">Hostelería.</span>
+            </motion.h1>
             
-            <p className="text-xl text-gray-300 max-w-xl leading-relaxed font-medium">
-              Protección total certificada para restaurantes, hoteles y hogares. <span className="text-white font-bold">Sin químicos tóxicos</span> y con resultados garantizados desde la primera visita.
-            </p>
+            <motion.p 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className="text-xl md:text-2xl text-gray-400 max-w-xl leading-relaxed font-medium"
+            >
+              Protección certificada COFEPRIS para los negocios más exigentes de México. <span className="text-white">Eliminación garantizada</span> con protocolos inodoros y discretos.
+            </motion.p>
 
-            <div className="grid sm:grid-cols-2 gap-4">
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+              className="flex flex-col sm:flex-row gap-4 pt-4"
+            >
               <button
                 onClick={() => setIsModalOpen(true)}
-                className="group px-8 py-5 rounded-2xl font-black text-brand-dark bg-brand-yellow hover:bg-white transition-all flex items-center justify-center gap-2 shadow-xl shadow-brand-yellow/10"
+                className="group relative px-10 py-6 rounded-2xl font-black text-white bg-brand-primary hover:bg-red-600 transition-all flex items-center justify-center gap-3 shadow-2xl shadow-brand-primary/40 overflow-hidden"
               >
-                Servicio el Mismo Día
-                <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+                Agendar Inspección Gratis
+                <ArrowRight size={22} className="group-hover:translate-x-1.5 transition-transform" />
               </button>
-              <button
-                onClick={() => setIsModalOpen(true)}
-                className="px-8 py-5 rounded-2xl font-black text-white border-2 border-white/20 hover:border-brand-red hover:bg-brand-red transition-all flex items-center justify-center gap-2 backdrop-blur-sm"
+              <a
+                href={`tel:${CONTACT_INFO.phone}`}
+                className="px-10 py-6 rounded-2xl font-black text-white border-2 border-white/10 hover:border-white/30 hover:bg-white/5 transition-all flex items-center justify-center gap-3 backdrop-blur-md"
               >
-                Inspección Inmediata
-              </button>
-            </div>
+                <div className="bg-brand-primary/20 p-2 rounded-lg">
+                  <Phone size={20} className="text-brand-primary" />
+                </div>
+                {CONTACT_INFO.phone}
+              </a>
+            </motion.div>
 
-            <div className="pt-8 flex flex-wrap gap-6 items-center border-t border-white/10 mt-8">
-              <div className="flex items-center gap-2">
-                <CheckCircle className="text-brand-yellow" size={20} />
-                <span className="text-sm font-bold text-gray-300">Licencia Sanitaria Vigente</span>
+            {/* Trust Badges */}
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5 }}
+              className="pt-12 grid grid-cols-2 md:grid-cols-4 gap-6 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-700 border-t border-white/5"
+            >
+              <div className="flex items-center gap-3">
+                <Target className="text-brand-primary w-5 h-5" />
+                <span className="text-[10px] font-black uppercase tracking-widest leading-tight">Manejo <br/>Integrado (MIP)</span>
               </div>
-              <div className="flex items-center gap-2">
-                <CheckCircle className="text-brand-yellow" size={20} />
-                <span className="text-sm font-bold text-gray-300">Certificado por Cofepris</span>
+              <div className="flex items-center gap-3">
+                <Award className="text-brand-primary w-5 h-5" />
+                <span className="text-[10px] font-black uppercase tracking-widest leading-tight">Certificación <br/>COFEPRIS</span>
               </div>
-              <div className="flex items-center gap-2">
-                <CheckCircle className="text-brand-yellow" size={20} />
-                <span className="text-sm font-bold text-gray-300">Productos Eco-Friendly</span>
+              <div className="flex items-center gap-3">
+                <ShieldCheck className="text-brand-primary w-5 h-5" />
+                <span className="text-[10px] font-black uppercase tracking-widest leading-tight">Garantía <br/>por Escrito</span>
               </div>
-            </div>
+              <div className="flex items-center gap-3">
+                <CheckCircle className="text-brand-primary w-5 h-5" />
+                <span className="text-[10px] font-black uppercase tracking-widest leading-tight">Sin olor <br/>ni manchas</span>
+              </div>
+            </motion.div>
           </div>
           
-          {/* Visual Column */}
-          <div className="w-full relative">
-            {/* Main Image Container */}
-            <div className="relative rounded-[2.5rem] overflow-hidden border border-white/10 shadow-2xl group cursor-pointer aspect-[4/5] lg:aspect-auto lg:h-[700px]" onClick={() => setIsVideoModalOpen(true)}>
+          {/* Visuals */}
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ type: "spring", damping: 20 }}
+            className="relative"
+          >
+            <div className="relative rounded-[3rem] overflow-hidden border border-white/10 shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] bg-gray-900 aspect-[4/5] group cursor-pointer" onClick={() => setIsVideoModalOpen(true)}>
                 <img 
                     src="/professional_exterminator_technician_1776356171077.png" 
-                    alt="Técnico Profesional en Fumigación"
-                    className="w-full h-full object-cover relative z-10 transition-transform duration-1000 group-hover:scale-105"
+                    alt="Servicio Profesional de Fumigación"
+                    className="w-full h-full object-cover transition-transform duration-[2000ms] group-hover:scale-110"
                 />
-
-                {/* Glassmorphism Badge */}
-                <div className="absolute top-8 left-8 z-20">
-                  <div className="bg-black/30 backdrop-blur-md border border-white/20 p-4 rounded-2xl">
-                    <p className="text-brand-yellow font-black text-2xl">+300</p>
-                    <p className="text-white text-[10px] font-bold uppercase tracking-widest leading-tight">Restaurantes <br />Protegidos</p>
-                  </div>
-                </div>
-
-                <div className="absolute inset-0 bg-gradient-to-t from-brand-dark/80 via-transparent to-transparent z-20 flex items-end p-10">
-                    <div className="flex items-center gap-4">
-                      <div className="w-16 h-16 bg-brand-red text-white rounded-full flex items-center justify-center shadow-2xl animate-pulse">
-                          <PlayCircle size={32} />
+                
+                <div className="absolute inset-0 bg-gradient-to-t from-brand-dark via-transparent to-transparent flex items-end p-12">
+                   <div className="flex items-center gap-5 translate-y-4 group-hover:translate-y-0 transition-transform duration-700">
+                      <div className="w-20 h-20 bg-brand-primary text-white rounded-full flex items-center justify-center shadow-3xl group-hover:scale-110 transition-all duration-500">
+                          <PlayCircle size={40} />
                       </div>
-                      <div>
-                        <p className="text-white font-black text-lg">Mira cómo trabajamos</p>
-                        <p className="text-gray-400 text-sm">Procesos certificados paso a paso</p>
+                      <div className="text-white">
+                        <p className="font-black text-2xl mb-1 tracking-tight">Experiencia 360°</p>
+                        <p className="text-gray-400 font-bold uppercase text-[10px] tracking-[0.2em]">Protocolo de desinfección total</p>
                       </div>
-                    </div>
+                   </div>
                 </div>
             </div>
 
-            {/* Experience Card Floating */}
-            <div className="absolute -bottom-8 -right-8 lg:-right-12 bg-white p-6 rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.2)] z-30 animate-float hidden md:block">
-                <div className="flex items-center gap-4">
-                    <div className="w-14 h-14 bg-brand-yellow/10 rounded-2xl flex items-center justify-center text-brand-yellow">
-                        <ShieldCheck size={32} />
-                    </div>
-                    <div>
-                        <div className="flex text-yellow-500 gap-0.5 mb-1">
-                            {[...Array(5)].map((_, i) => <Star key={i} size={14} fill="currentColor" />)}
-                        </div>
-                        <p className="font-black text-brand-dark leading-tight">Garantía por Escrito</p>
-                        <p className="text-gray-500 text-xs font-bold uppercase tracking-wider">Cero Plagas 100%</p>
-                    </div>
-                </div>
-            </div>
-          </div>
-
+            {/* Floating Stat */}
+            <motion.div 
+              animate={{ y: [0, -15, 0] }}
+              transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
+              className="absolute -top-6 -right-6 lg:-top-10 lg:-right-10 bg-white p-8 rounded-[2rem] shadow-3xl z-20"
+            >
+              <p className="text-brand-primary font-black text-5xl leading-none mb-1 tabular-nums tracking-tighter">500+</p>
+              <p className="text-brand-dark text-[10px] font-black uppercase tracking-widest leading-tight">Clientes <br/>Comerciales</p>
+              <div className="flex gap-1 mt-3">
+                 {[...Array(5)].map((_, i) => <Star key={i} size={10} fill="#FBC02D" className="text-[#FBC02D]" />)}
+              </div>
+            </motion.div>
+          </motion.div>
         </div>
       </div>
-      
-      {/* WhatsApp Modal */}
-      <LocationModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
 
-      {/* Fullscreen Video Modal */}
-      {isVideoModalOpen && (
-          <div className="fixed inset-0 z-[100] bg-black/95 flex items-center justify-center p-4 backdrop-blur-xl">
-              <button 
-                onClick={() => setIsVideoModalOpen(false)}
-                className="absolute top-8 right-8 text-white hover:text-brand-red transition-all p-2 hover:bg-white/10 rounded-full"
-              >
-                  <ShieldCheck size={40} className="rotate-45" /> 
-              </button>
-              <div className="w-full max-w-5xl aspect-video rounded-3xl overflow-hidden shadow-2xl border border-white/10">
-                  <iframe 
-                    className="w-full h-full"
-                    src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1" 
-                    title="Control de Plagas Profesional"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                    allowFullScreen
-                  ></iframe>
-              </div>
-          </div>
-      )}
+      <LocationModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </section>
   );
 };
+
+export default Hero;
+
 
 export default Hero;

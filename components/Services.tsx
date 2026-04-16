@@ -1,101 +1,71 @@
 import React from 'react';
-import { ArrowRight, Utensils, Home, ShieldAlert, Bug, Rat, Building2 } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { ArrowRight, Building2, Home } from 'lucide-react';
+import { PESTS_LIST } from '../constants';
 
 const Services: React.FC = () => {
-  const silos = [
-    {
-      title: "Control Comercial",
-      label: "Especialidad FE™",
-      description: "Certificaciones para Restaurantes, Hoteles e Industria Alimentaria. Cumplimos con Distintivo H y normas internacionales.",
-      icon: Utensils,
-      bg: "bg-brand-red",
-      textColor: "text-white",
-      image: "https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&q=80&w=800"
-    },
-    {
-      title: "Cucarachas",
-      label: "Eliminación Total",
-      description: "Sistemas de gel activo y nebulización focalizada. Eliminamos el nido, no solo las que ves.",
-      icon: Bug,
-      bg: "bg-white",
-      textColor: "text-brand-dark",
-      image: "https://gleba.com.ar/wp-content/uploads/2021/12/Cucaracha-americana-Gleba.jpg"
-    },
-    {
-      title: "Roedores",
-      label: "Control Definitivo",
-      description: "Barreras físicas y químicas. Monitoreo constante para evitar re-infestaciones en áreas de almacenamiento.",
-      icon: Rat,
-      bg: "bg-white",
-      textColor: "text-brand-dark",
-      image: "https://images.unsplash.com/photo-1445217111658-447af5973d06?auto=format&fit=crop&q=80&w=800"
-    },
-    {
-      title: "Chinche de Cama",
-      label: "Protocolo Hotelero",
-      description: "Tratamientos de choque con vapor y residuales. Recupera tu habitación en menos de 24 horas.",
-      icon: ShieldAlert,
-      bg: "bg-white",
-      textColor: "text-brand-dark",
-      image: "https://images.unsplash.com/photo-1555854816-809d28f0d01d?auto=format&fit=crop&q=80&w=800"
-    }
-  ];
-
   return (
-    <section id="servicios" className="py-24 bg-brand-gray relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+    <section id="servicios" className="py-24 bg-gray-50 relative">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-8">
           <div className="max-w-2xl">
-            <span className="inline-block py-1 px-3 rounded-full bg-brand-red/10 text-brand-red font-bold tracking-widest uppercase text-xs mb-4">
-              Categorías de Servicio
+            <span className="inline-block py-1 px-4 rounded-full bg-brand-primary/10 text-brand-primary font-black tracking-widest uppercase text-[10px] mb-6 border border-brand-primary/20">
+              Silos de Especialización
             </span>
-            <h2 className="text-4xl lg:text-5xl font-black text-brand-dark tracking-tight">
-              Silos de Especialización <br />
-              <span className="text-brand-red">Fumigaciones FE™</span>
+            <h2 className="text-5xl lg:text-7xl font-black text-brand-dark tracking-tighter leading-[0.9]">
+              Nuestras <span className="text-brand-primary">Soluciones</span> <br /> 
+              Certificadas FE™
             </h2>
           </div>
-          <p className="text-gray-500 font-medium max-w-xs md:text-right">
-            Soluciones independientes diseñadas para cada tipo de reto sanitario.
+          <p className="text-xl text-gray-500 font-medium max-w-sm md:text-right leading-relaxed">
+            Eliminación científica diseñada para cada tipo de reto sanitario en la hostelería de México.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {silos.map((silo, index) => {
-             const Icon = silo.icon;
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {PESTS_LIST.map((pest, index) => {
+             const Icon = pest.icon;
              return (
               <div 
                 key={index}
-                className={`${silo.bg} ${silo.textColor} rounded-[2.5rem] p-8 shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-4 group relative overflow-hidden flex flex-col min-h-[500px] border border-gray-100`}
+                className="bg-white rounded-[2.5rem] p-10 shadow-2xl shadow-gray-200/50 hover:shadow-brand-primary/10 transition-all duration-700 group relative overflow-hidden flex flex-col min-h-[480px] border border-gray-100"
               >
-                {/* Background Image with Overlay */}
-                <div className="absolute inset-0 z-0 overflow-hidden">
+                {/* Image Background */}
+                <div className="absolute inset-0 z-0 overflow-hidden opacity-0 group-hover:opacity-10 transition-opacity duration-700">
                     <img 
-                        src={silo.image} 
-                        className="w-full h-full object-cover opacity-10 group-hover:scale-110 transition-transform duration-700 grayscale group-hover:grayscale-0" 
-                        alt={silo.title} 
+                        src={pest.image} 
+                        className="w-full h-full object-cover scale-110 group-hover:scale-100 transition-transform duration-[2000ms]" 
+                        alt={pest.name} 
                     />
-                    <div className={`absolute inset-0 ${silo.bg === 'bg-white' ? 'bg-gradient-to-b from-white via-white/80 to-white' : 'bg-gradient-to-b from-brand-red via-brand-red/80 to-brand-red'}`}></div>
                 </div>
 
                 <div className="relative z-10 flex flex-col h-full">
-                    <div className={`${silo.bg === 'bg-white' ? 'bg-brand-red text-white' : 'bg-white text-brand-red'} w-14 h-14 rounded-2xl flex items-center justify-center mb-8 shadow-lg`}>
-                        <Icon size={28} />
+                    <div className="bg-brand-primary text-white w-16 h-16 rounded-2xl flex items-center justify-center mb-10 shadow-xl shadow-brand-primary/20 group-hover:scale-110 transition-transform duration-500">
+                        <Icon size={32} />
                     </div>
                     
-                    <div className="space-y-4 flex-grow">
-                        <p className={`text-[10px] font-black uppercase tracking-[0.2em] ${silo.bg === 'bg-white' ? 'text-brand-red' : 'text-brand-yellow'}`}>
-                            {silo.label}
+                    <div className="space-y-6 flex-grow">
+                        <h3 className="font-black text-3xl leading-tight text-brand-dark">{pest.name}</h3>
+                        <p className="text-lg leading-relaxed text-gray-500 font-medium">
+                          {pest.description}
                         </p>
-                        <h3 className="font-black text-2xl leading-tight">{silo.title}</h3>
-                        <p className={`text-sm leading-relaxed ${silo.bg === 'bg-white' ? 'text-gray-600' : 'text-white/80'}`}>
-                          {silo.description}
-                        </p>
+                        
+                        <div className="flex flex-wrap gap-2 pt-4">
+                            {pest.features.slice(0, 2).map((f, i) => (
+                                <span key={i} className="text-[10px] font-black uppercase tracking-widest bg-gray-100 text-gray-500 px-3 py-1.5 rounded-full">
+                                    {f}
+                                </span>
+                            ))}
+                        </div>
                     </div>
                     
-                    <div className="mt-10 pt-6 border-t border-current/10">
-                        <a href="#contacto" className="inline-flex items-center gap-3 font-black text-sm uppercase tracking-widest hover:gap-5 transition-all">
-                            Ver más detalles <ArrowRight size={18} />
-                        </a>
+                    <div className="mt-12 pt-8 border-t border-gray-100">
+                        <Link 
+                           to={`/servicios/${pest.slug}`} 
+                           className="inline-flex items-center gap-4 font-black text-sm uppercase tracking-widest text-brand-dark hover:text-brand-primary transition-all group/btn"
+                        >
+                            Explorar Silo <ArrowRight size={20} className="group-hover/btn:translate-x-2 transition-transform" />
+                        </Link>
                     </div>
                 </div>
               </div>
@@ -103,31 +73,45 @@ const Services: React.FC = () => {
           })}
         </div>
 
-        {/* Floating Sector Summary */}
-        <div className="mt-16 bg-white rounded-3xl p-10 flex flex-wrap items-center justify-around gap-8 border border-gray-100 shadow-sm">
-            <div className="flex items-center gap-4">
-                <Building2 className="text-brand-red" size={40} />
-                <div>
-                   <p className="font-black text-brand-dark text-xl leading-none">Sector Comercial</p>
-                   <p className="text-gray-500 text-sm mt-1">Más de 300 Restaurantes Protegidos</p>
+        {/* Sector Summary Bar */}
+        <div className="mt-20 bg-brand-dark rounded-[3rem] p-12 flex flex-col lg:flex-row items-center justify-between gap-12 shadow-3xl text-white overflow-hidden relative">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-brand-primary/20 rounded-full blur-[100px]" />
+            
+            <div className="flex flex-col md:flex-row items-center gap-8 relative z-10">
+                <div className="flex items-center gap-4">
+                    <div className="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center">
+                        <Building2 className="text-brand-primary" size={32} />
+                    </div>
+                    <div>
+                    <p className="font-black text-2xl leading-none">Sector Comercial</p>
+                    <p className="text-gray-400 text-sm mt-1 font-bold italic tracking-wide">+300 Restaurantes Protegidos</p>
+                    </div>
+                </div>
+                <div className="w-px h-12 bg-white/10 hidden md:block"></div>
+                <div className="flex items-center gap-4">
+                    <div className="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center">
+                        <Home className="text-brand-primary" size={32} />
+                    </div>
+                    <div>
+                    <p className="font-black text-2xl leading-none">Sector Residencial</p>
+                    <p className="text-gray-400 text-sm mt-1 font-bold italic tracking-wide">Privacidad & Garantía Total</p>
+                    </div>
                 </div>
             </div>
-            <div className="w-px h-12 bg-gray-100 hidden lg:block"></div>
-            <div className="flex items-center gap-4">
-                <Home className="text-brand-red" size={40} />
-                <div>
-                   <p className="font-black text-brand-dark text-xl leading-none">Sector Residencial</p>
-                   <p className="text-gray-500 text-sm mt-1">Hogares Libres de Plagas por Recomendación</p>
-                </div>
-            </div>
-            <div className="w-px h-12 bg-gray-100 hidden lg:block"></div>
-            <a href="#contacto" className="bg-brand-dark text-white px-8 py-4 rounded-full font-black text-sm uppercase tracking-widest hover:bg-brand-red transition-all shadow-lg">
-                Agendar Inspección Gratis
-            </a>
+
+            <Link 
+              to="/nosotros" 
+              className="relative z-10 bg-brand-primary hover:bg-red-600 text-white px-12 py-6 rounded-2xl font-black text-sm uppercase tracking-[0.2em] transition-all shadow-2xl shadow-brand-primary/30"
+            >
+                Sobre Nosotros
+            </Link>
         </div>
       </div>
     </section>
   );
 };
+
+export default Services;
+
 
 export default Services;
