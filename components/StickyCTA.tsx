@@ -27,12 +27,15 @@ const StickyCTA: React.FC = () => {
                     <span className="text-sm font-black uppercase tracking-tighter">Cotizar Gratis</span>
                 </a>
 
-                <button 
-                    className="flex-1 flex flex-col items-center justify-center p-3 rounded-2xl bg-white/5 text-white border border-white/5"
+                <a 
+                    href="https://booking.appointy.com/es/victorluna/bookings/service"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 flex flex-col items-center justify-center p-3 rounded-2xl bg-white/5 text-white border border-white/5 hover:bg-white/10 transition-all text-center"
                 >
                     <Calendar size={18} className="text-brand-primary mb-1" />
-                    <span className="text-[10px] font-black uppercase tracking-widest">Cita</span>
-                </button>
+                    <span className="text-[10px] font-black uppercase tracking-widest leading-none">Agendar</span>
+                </a>
             </motion.div>
         </div>
     );

@@ -21,7 +21,7 @@ const CostCalculator: React.FC = () => {
                 <div className="max-w-5xl mx-auto bg-white rounded-[3rem] shadow-2xl overflow-hidden grid lg:grid-cols-2">
                     <div className="p-12 lg:p-16 space-y-8">
                         <div>
-                            <span className="text-brand-primary font-black uppercase tracking-widest text-xs mb-4 block">Herramienta de Diagnóstico</span>
+                            <span className="text-brand-red font-black uppercase tracking-widest text-xs mb-4 block">Herramienta de Diagnóstico</span>
                             <h2 className="text-4xl font-black text-brand-dark leading-tight">Cotizador Instantáneo</h2>
                             <p className="text-gray-500 mt-4 font-medium">Obtén un estimado rápido basado en los metros cuadrados de tu propiedad.</p>
                         </div>
@@ -32,7 +32,7 @@ const CostCalculator: React.FC = () => {
                                 <input 
                                     type="number" 
                                     placeholder="Ej. 120"
-                                    className="w-full bg-gray-50 border-2 border-gray-100 p-5 rounded-2xl focus:border-brand-primary outline-none font-bold text-xl transition-all"
+                                    className="w-full bg-gray-50 border-2 border-gray-100 p-5 rounded-2xl focus:border-brand-red outline-none font-bold text-xl transition-all"
                                     onChange={(e) => setSqm(Number(e.target.value))}
                                 />
                             </div>
@@ -40,7 +40,7 @@ const CostCalculator: React.FC = () => {
                             <div>
                                 <label className="block text-sm font-black uppercase text-gray-400 mb-2">Tipo de Plaga</label>
                                 <select 
-                                    className="w-full bg-gray-50 border-2 border-gray-100 p-5 rounded-2xl focus:border-brand-primary outline-none font-bold text-lg appearance-none transition-all"
+                                    className="w-full bg-gray-50 border-2 border-gray-100 p-5 rounded-2xl focus:border-brand-red outline-none font-bold text-lg appearance-none transition-all"
                                     onChange={(e) => setPestType(e.target.value)}
                                 >
                                     <option value="cucarachas">Cucarachas (Gel & Aspersión)</option>
@@ -54,7 +54,7 @@ const CostCalculator: React.FC = () => {
 
                     <div className="bg-brand-dark p-12 lg:p-16 text-white flex flex-col justify-between">
                         <div>
-                            <div className="flex items-center gap-3 text-brand-primary mb-8">
+                            <div className="flex items-center gap-3 text-brand-red mb-8">
                                 <Calculator />
                                 <span className="font-black uppercase tracking-widest">Inversión Estimada</span>
                             </div>
@@ -72,10 +72,10 @@ const CostCalculator: React.FC = () => {
 
                         <div className="pt-12 space-y-6">
                             <div className="flex items-center gap-4 bg-white/5 p-4 rounded-2xl border border-white/5">
-                                <Zap className="text-brand-primary" size={24} />
+                                <Zap className="text-brand-red" size={24} />
                                 <span className="text-sm font-bold">Servicio disponible el mismo día</span>
                             </div>
-                            <button className="w-full bg-brand-primary hover:bg-red-600 py-5 rounded-2xl font-black text-lg transition-all shadow-xl shadow-brand-primary/20">
+                            <button className="w-full bg-brand-red hover:bg-red-600 py-5 rounded-2xl font-black text-lg transition-all shadow-xl shadow-brand-red/20">
                                 Confirmar y Agendar
                             </button>
                         </div>

@@ -1,83 +1,89 @@
 import React from 'react';
-import { Building2, Utensils, ShieldCheck, Users } from 'lucide-react';
+import { Building2, Utensils, ShieldCheck, Users, ArrowRight } from 'lucide-react';
 
 const AboutUs: React.FC = () => {
     return (
-        <section id="nosotros" className="py-24 bg-white overflow-hidden">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <section id="nosotros" className="py-24 bg-white overflow-hidden relative">
+            {/* Decorative Color Accents */}
+            <div className="absolute top-0 right-0 w-1/3 h-full bg-brand-red/[0.02] transform skew-x-12 translate-x-1/2 pointer-events-none" />
+            <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-brand-red/[0.03] rounded-full blur-[100px] pointer-events-none" />
+
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <div className="flex flex-col lg:flex-row items-center gap-16">
                     
                     {/* Visual Element */}
                     <div className="w-full lg:w-1/2 relative">
-                        <div className="relative rounded-3xl overflow-hidden shadow-2xl">
+                        <div className="relative rounded-[3rem] overflow-hidden shadow-3xl group">
                             <img 
                                 src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&q=80&w=1200" 
                                 alt="Restaurante impecable" 
-                                className="w-full h-[500px] object-cover"
+                                className="w-full h-[600px] object-cover transition-transform duration-1000 group-hover:scale-105"
                             />
-                            <div className="absolute inset-0 bg-gradient-to-t from-brand-dark/60 to-transparent"></div>
+                            <div className="absolute inset-0 bg-gradient-to-t from-brand-dark/80 via-transparent to-transparent opacity-60"></div>
                             
                             <div className="absolute bottom-8 left-8 right-8">
-                                <div className="bg-white/10 backdrop-blur-md border border-white/20 p-6 rounded-2xl">
-                                    <p className="text-white text-lg font-medium italic">
-                                        "Garantizamos espacios libres de plagas para que tú te enfoques en el servicio."
+                                <div className="bg-brand-red p-8 rounded-3xl shadow-2xl transform transition-transform group-hover:-translate-y-2">
+                                    <p className="text-white text-xl font-bold leading-tight uppercase tracking-tight italic">
+                                        "Garantizamos espacios libres de plagas para que tú te enfocues en el servicio."
                                     </p>
+                                    <div className="mt-4 flex items-center gap-2">
+                                        <div className="h-1 w-12 bg-white/30 rounded-full" />
+                                        <span className="text-white/70 text-[10px] font-black uppercase tracking-widest">FE™ Protection Guarantee</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         
                         {/* Experience Badge */}
-                        <div className="absolute -top-6 -right-6 bg-brand-yellow p-8 rounded-2xl shadow-xl animate-float">
-                            <p className="text-brand-dark font-black text-4xl leading-none">+300</p>
-                            <p className="text-brand-dark font-bold text-sm uppercase tracking-wider mt-2">Restaurantes<br/>Protegidos</p>
+                        <div className="absolute -top-10 -right-6 bg-brand-dark p-10 rounded-[2.5rem] shadow-3xl animate-float border border-white/10 group">
+                            <div className="relative">
+                                <p className="text-brand-red font-black text-6xl leading-none">+300</p>
+                                <p className="text-white font-bold text-xs uppercase tracking-[0.2em] mt-3">Restaurantes<br/>Auditados</p>
+                                <div className="absolute -top-4 -left-4 w-12 h-12 bg-brand-red/20 rounded-full blur-xl animate-pulse" />
+                            </div>
                         </div>
                     </div>
 
                     {/* Content */}
-                    <div className="w-full lg:w-1/2 space-y-8">
+                    <div className="w-full lg:w-1/2 space-y-12">
                         <div>
-                            <span className="inline-block py-1 px-3 rounded-full bg-brand-red/10 text-brand-red font-bold tracking-widest uppercase text-xs mb-4">
-                                Sobre Nosotros
+                            <span className="inline-flex items-center gap-2 py-1.5 px-4 rounded-full bg-brand-red/10 text-brand-red font-black tracking-[0.2em] uppercase text-[10px] mb-6 border border-brand-red/20">
+                                <ShieldCheck size={14} /> Elite Pest Protection
                             </span>
-                            <h2 className="text-4xl lg:text-5xl font-bold text-brand-dark tracking-tight mb-6 leading-tight">
-                                Tu negocio en manos de profesionales.
+                            <h2 className="text-5xl lg:text-7xl font-black text-brand-dark tracking-tighter leading-[0.9] mb-8">
+                                Tu negocio en <br />
+                                <span className="text-brand-red">Manos Científicas.</span>
                             </h2>
-                            <p className="text-gray-600 text-lg leading-relaxed">
-                                Entendemos que en la industria de la hospitalidad y la gastronomía, una plaga no es solo una molestia, es un riesgo crítico para tu prestigio y operación.
+                            <p className="text-xl text-gray-500 font-medium leading-relaxed max-w-xl">
+                                En la industria de la hospitalidad, una plaga es un riesgo crítico para tu operación. 
+                                <span className="text-brand-dark font-black"> Usamos tecnología avanzada</span> para un control preventivo infranqueable.
                             </p>
                         </div>
 
-                        <div className="space-y-6">
-                            <p className="text-gray-600 text-lg leading-relaxed">
-                                Nos especializamos en la fumigación y control preventivo para hoteles y restaurantes, garantizando espacios limpios y seguros para tus clientes, cumpliendo con los más altos estándares sanitarios a nivel nacional.
-                            </p>
+                        <div className="grid sm:grid-cols-2 gap-6">
+                            <div className="group p-6 bg-brand-gray/50 rounded-3xl border border-transparent hover:border-brand-red/20 hover:bg-white hover:shadow-2xl hover:shadow-brand-red/5 transition-all duration-500">
+                                <div className="w-12 h-12 bg-brand-red/10 rounded-2xl flex items-center justify-center text-brand-red mb-4 group-hover:scale-110 transition-transform">
+                                    <Utensils size={24} />
+                                </div>
+                                <h4 className="font-black text-lg text-brand-dark mb-2 uppercase tracking-tight italic">Sector Gastronómico</h4>
+                                <p className="text-gray-500 text-sm font-bold">Protocolos HACCP y cumplimiento de normas sanitarias.</p>
+                            </div>
                             
-                            <div className="grid sm:grid-cols-2 gap-4 pt-4">
-                                <div className="flex items-center gap-3 p-4 bg-brand-gray rounded-xl">
-                                    <Utensils className="text-brand-red" size={24} />
-                                    <span className="font-bold text-brand-dark">Sector Gastronómico</span>
+                            <div className="group p-6 bg-brand-gray/50 rounded-3xl border border-transparent hover:border-brand-red/20 hover:bg-white hover:shadow-2xl hover:shadow-brand-red/5 transition-all duration-500">
+                                <div className="w-12 h-12 bg-brand-red/10 rounded-2xl flex items-center justify-center text-brand-red mb-4 group-hover:scale-110 transition-transform">
+                                    <Building2 size={24} />
                                 </div>
-                                <div className="flex items-center gap-3 p-4 bg-brand-gray rounded-xl">
-                                    <Building2 className="text-brand-red" size={24} />
-                                    <span className="font-bold text-brand-dark">Sector Hotelero</span>
-                                </div>
-                                <div className="flex items-center gap-3 p-4 bg-brand-gray rounded-xl">
-                                    <ShieldCheck className="text-brand-red" size={24} />
-                                    <span className="font-bold text-brand-dark">Protección de Marca</span>
-                                </div>
-                                <div className="flex items-center gap-3 p-4 bg-brand-gray rounded-xl">
-                                    <Users className="text-brand-red" size={24} />
-                                    <span className="font-bold text-brand-dark">Atención Personalizada</span>
-                                </div>
+                                <h4 className="font-black text-lg text-brand-dark mb-2 uppercase tracking-tight italic">Sector Hotelero</h4>
+                                <p className="text-gray-500 text-sm font-bold">Discreción absoluta y protección total de tus huéspedes.</p>
                             </div>
                         </div>
 
-                        <div className="pt-6">
+                        <div className="pt-8 block">
                             <a 
                                 href="#contacto" 
-                                className="inline-flex items-center gap-2 bg-brand-dark text-white px-8 py-4 rounded-full font-bold hover:bg-brand-red transition-all shadow-lg hover:shadow-brand-red/20"
+                                className="inline-flex items-center gap-4 bg-brand-dark text-white px-10 py-5 rounded-2xl font-black text-sm uppercase tracking-[0.2em] hover:bg-brand-red transition-all shadow-2xl hover:shadow-brand-red/30 group/btn"
                             >
-                                Conocer nuestra metodología
+                                Nuestra Metodología <ArrowRight className="group-hover/btn:translate-x-2 transition-transform" />
                             </a>
                         </div>
                     </div>

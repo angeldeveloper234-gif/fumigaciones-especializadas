@@ -1,4 +1,8 @@
 import { LucideIcon } from 'lucide-react';
+import React from 'react';
+
+// Allows both Lucide icons and custom SVG icon components
+export type AnyIcon = LucideIcon | React.FC<{ size?: number; className?: string; strokeWidth?: number }>;
 
 export interface ServiceItem {
   id: string;
@@ -9,7 +13,7 @@ export interface ServiceItem {
   risks: string;
   process: string;
   prevention: string;
-  icon: LucideIcon;
+  icon: AnyIcon;
   image: string;
   features: string[];
 }
@@ -32,6 +36,6 @@ export interface NavLink {
 export interface MethodItem {
   title: string;
   description: string;
-  icon: LucideIcon;
+  icon: AnyIcon;
   isEco?: boolean;
-}
+}

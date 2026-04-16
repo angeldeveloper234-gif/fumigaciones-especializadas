@@ -64,17 +64,17 @@ const LocationModal: React.FC<LocationModalProps> = ({ isOpen, onClose }) => {
       <div className={`relative bg-white w-full max-w-md rounded-[2rem] shadow-2xl overflow-hidden flex flex-col max-h-[90vh] transform transition-all duration-300 ${isOpen ? 'scale-100 translate-y-0' : 'scale-95 translate-y-8'}`}>
 
         {/* Header */}
-        <div className="bg-brand-gray px-6 py-6 border-b border-gray-100 flex justify-between items-center shrink-0">
+        <div className="bg-brand-dark px-6 py-6 border-b border-white/10 flex justify-between items-center shrink-0">
           <div>
-            <h3 className="font-bold text-xl text-brand-dark flex items-center gap-2">
-              <MessageCircle className="text-brand-green fill-brand-green/20" />
+            <h3 className="font-bold text-xl text-white flex items-center gap-2">
+              <MessageCircle className="text-brand-red fill-brand-red/20" />
               ¡Selecciona tu localidad!
             </h3>
-            <p className="text-xs text-gray-500 mt-1 ml-8">Te atenderá un especialista local</p>
+            <p className="text-xs text-brand-red font-bold mt-1 ml-8">Te atenderá un especialista local</p>
           </div>
           <button
             onClick={onClose}
-            className="p-2 text-gray-400 hover:text-brand-dark hover:bg-gray-200 rounded-full transition-colors"
+            className="p-2 text-gray-400 hover:text-white hover:bg-white/10 rounded-full transition-colors"
             aria-label="Cerrar"
           >
             <X size={24} />
@@ -87,18 +87,18 @@ const LocationModal: React.FC<LocationModalProps> = ({ isOpen, onClose }) => {
             <div
               key={branch.id}
               onClick={() => handleBranchClick(branch)}
-              className="group flex items-center justify-between p-4 rounded-2xl border-2 border-gray-50 hover:border-brand-green/30 hover:bg-green-50/50 transition-all duration-300 cursor-pointer shadow-sm hover:shadow-md"
+              className="group flex items-center justify-between p-4 rounded-2xl border-2 border-gray-50 hover:border-brand-red/30 hover:bg-red-50/50 transition-all duration-300 cursor-pointer shadow-sm hover:shadow-md"
             >
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-full bg-brand-green/10 flex items-center justify-center text-brand-green group-hover:bg-brand-green group-hover:text-white transition-colors duration-300 shrink-0">
+                <div className="w-12 h-12 rounded-full bg-brand-red/10 flex items-center justify-center text-brand-red group-hover:bg-brand-red group-hover:text-white transition-colors duration-300 shrink-0">
                   <MapPin size={22} />
                 </div>
                 <div>
-                  <span className="block font-bold text-brand-dark text-lg group-hover:text-brand-green transition-colors">{branch.name}</span>
-                  <span className="text-xs text-gray-500 font-medium bg-gray-100 px-2 py-0.5 rounded-full group-hover:bg-white group-hover:text-brand-green transition-colors">Disponible Ahora</span>
+                  <span className="block font-bold text-brand-dark text-lg group-hover:text-brand-red transition-colors">{branch.name}</span>
+                  <span className="text-xs text-brand-red font-medium bg-red-50 px-2 py-0.5 rounded-full group-hover:bg-brand-red group-hover:text-white transition-colors">Disponible Ahora</span>
                 </div>
               </div>
-              <ChevronRight className="text-gray-300 group-hover:text-brand-green group-hover:translate-x-1 transition-all duration-300" size={20} />
+              <ChevronRight className="text-gray-300 group-hover:text-brand-red group-hover:translate-x-1 transition-all duration-300" size={20} />
             </div>
           ))}
         </div>

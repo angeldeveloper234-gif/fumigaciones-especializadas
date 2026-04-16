@@ -18,7 +18,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800;900&display=swap"
     rel="stylesheet">
   <script>
     tailwind.config = {
@@ -27,21 +27,26 @@
           colors: {
             brand: {
               red: '#E53935',
+              primary: '#E53935', // Alias for backward compatibility
               darkRed: '#B71C1C',
-              green: '#E53935', 
-              darkGreen: '#B71C1C',
-              yellow: '#FBC02D',
-              dark: '#1A1A1A',
+              dark: '#0A0A0A',
+              slate: '#1A1A1A',
               gray: '#F3F4F6',
               white: '#FFFFFF',
             }
           },
           fontFamily: {
-            sans: ['Inter', 'sans-serif'],
+             sans: ['Inter', 'sans-serif'],
+             display: ['Outfit', 'Inter', 'sans-serif'],
           },
-          boxShadow: {
-            'soft': '0 20px 40px -15px rgba(45, 140, 60, 0.15)',
-            'glow': '0 0 20px rgba(251, 192, 45, 0.5)',
+          animation: {
+            'shimmer': 'shimmer 2s linear infinite',
+          },
+          keyframes: {
+            shimmer: {
+              '0%': { backgroundPosition: '-200% 0' },
+              '100%': { backgroundPosition: '200% 0' },
+            }
           }
         }
       }

@@ -4,90 +4,115 @@ import { ShieldCheck, Bug, Thermometer, Calendar, HelpCircle, ArrowRight } from 
 
 const Education: React.FC = () => {
     return (
-        <section id="educacion" className="py-24 bg-gray-50 overflow-hidden">
-            <div className="max-w-7xl mx-auto px-6">
-                <div className="flex flex-col lg:flex-row gap-20 items-stretch">
+        <section id="educacion" className="py-24 bg-white overflow-hidden relative">
+            {/* Background elements */}
+            <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-brand-red/20 to-transparent" />
+            <div className="absolute top-0 right-0 w-64 h-64 bg-brand-red/[0.02] rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+
+            <div className="max-w-7xl mx-auto px-6 relative z-10">
+                <div className="flex flex-col lg:flex-row gap-16 items-start">
                     
                     {/* Editorial Alerts */}
-                    <div className="lg:w-3/5 space-y-12">
+                    <div className="lg:w-2/3 space-y-16">
                         <div>
-                            <span className="inline-block py-1 px-4 rounded-full bg-brand-primary/10 text-brand-primary font-black tracking-[0.2em] uppercase text-[10px] mb-6 border border-brand-primary/20">
-                                Centro de Inteligencia Biológica
+                            <span className="inline-flex items-center gap-2 py-1.5 px-4 rounded-full bg-brand-red/10 text-brand-red font-black tracking-[0.2em] uppercase text-[10px] mb-8 border border-brand-red/20">
+                                <Bug size={14} /> Biosecurity Intelligence
                             </span>
-                            <h2 className="text-5xl lg:text-7xl font-black text-brand-dark leading-[0.9] tracking-tighter">
-                                Alertas de Temporada <br />
-                                <span className="text-brand-primary">Primavera 2026</span>
+                            <h2 className="text-5xl lg:text-8xl font-black text-brand-dark leading-[0.85] tracking-tighter mb-10">
+                                Centro de <br />
+                                <span className="text-brand-red">Vigilancia Biológica.</span>
                             </h2>
+                            <p className="text-2xl text-gray-500 font-medium max-w-2xl leading-relaxed italic">
+                                Pronósticos estacionales y protocolos de mitigación para la industria alimentaria en México.
+                            </p>
                         </div>
 
-                        <div className="grid md:grid-cols-2 gap-8 mt-12">
-                            <article className="bg-white p-10 rounded-[2.5rem] border border-gray-100 shadow-2xl shadow-gray-200/50 flex flex-col justify-between group">
-                                <div className="space-y-6">
-                                    <div className="w-14 h-14 bg-red-50 rounded-2xl flex items-center justify-center text-brand-primary group-hover:bg-brand-primary group-hover:text-white transition-all duration-500">
-                                        <Thermometer size={28} />
-                                    </div>
-                                    <h3 className="text-2xl font-black text-brand-dark leading-tight">Ciclo de Calor: Cucaracha Alemana</h3>
-                                    <p className="text-gray-500 font-medium leading-relaxed">
-                                        El incremento en la temperatura ambiente acelera el metabolismo y ciclo reproductivo. Recomendamos <span className="text-brand-dark font-bold underline decoration-brand-primary">barreras perimetrales activas</span>.
-                                    </p>
+                        <div className="grid md:grid-cols-2 gap-10">
+                            <article className="group relative bg-brand-gray/30 p-10 rounded-[3rem] border border-transparent hover:border-brand-red/20 hover:bg-white hover:shadow-3xl transition-all duration-700">
+                                <div className="absolute top-8 right-8 text-brand-red opacity-10 group-hover:opacity-100 transition-opacity">
+                                    <Bug size={48} />
                                 </div>
-                                <div className="mt-10">
-                                   <span className="text-[10px] font-black uppercase tracking-widest text-brand-primary">Nivel de Riesgo: Crítico</span>
+                                <div className="space-y-8">
+                                    <div className="w-16 h-16 bg-brand-red text-white rounded-2xl flex items-center justify-center shadow-xl shadow-brand-red/20">
+                                        <Thermometer size={32} />
+                                    </div>
+                                    <div>
+                                        <h3 className="text-3xl font-black text-brand-dark leading-tight mb-4">Estrés Térmico: <br/>Blattella Germanica</h3>
+                                        <p className="text-gray-500 font-bold leading-relaxed">
+                                            Las temperaturas &gt;28°C reducen el tiempo de incubación de ootecas. Implementamos <span className="text-brand-red underline decoration-2">bloqueo hormonal (IGR)</span> preventivo.
+                                        </p>
+                                    </div>
+                                    <div className="pt-6 border-t border-gray-200">
+                                        <div className="flex items-center justify-between">
+                                            <span className="text-[10px] font-black uppercase tracking-widest text-brand-red">Prioridad: Máxima</span>
+                                            <ArrowRight className="text-brand-red opacity-0 group-hover:opacity-100 group-hover:translate-x-2 transition-all" size={20} />
+                                        </div>
+                                    </div>
                                 </div>
                             </article>
                             
-                            <article className="bg-white p-10 rounded-[2.5rem] border border-gray-100 shadow-2xl shadow-gray-200/50 flex flex-col justify-between group">
-                                <div className="space-y-6">
-                                    <div className="w-14 h-14 bg-red-50 rounded-2xl flex items-center justify-center text-brand-primary group-hover:bg-brand-primary group-hover:text-white transition-all duration-500">
-                                        <Calendar size={28} />
-                                    </div>
-                                    <h3 className="text-2xl font-black text-brand-dark leading-tight">Enjambramiento de Termitas</h3>
-                                    <p className="text-gray-500 font-medium leading-relaxed">
-                                        Temporada de formación de nuevas colonias subterráneas. Identifique alas translúcidas cerca de fuentes de luz o cimientos.
-                                    </p>
+                            <article className="group relative bg-brand-gray/30 p-10 rounded-[3rem] border border-transparent hover:border-brand-red/20 hover:bg-white hover:shadow-3xl transition-all duration-700">
+                                <div className="absolute top-8 right-8 text-brand-red opacity-10 group-hover:opacity-100 transition-opacity">
+                                    <ShieldCheck size={48} />
                                 </div>
-                                <div className="mt-10">
-                                   <span className="text-[10px] font-black uppercase tracking-widest text-brand-primary">Monitoreo: Mayo - Junio</span>
+                                <div className="space-y-8">
+                                    <div className="w-16 h-16 bg-brand-dark text-white rounded-2xl flex items-center justify-center shadow-xl shadow-brand-dark/20 group-hover:bg-brand-red transition-colors">
+                                        <Calendar size={32} />
+                                    </div>
+                                    <div>
+                                        <h3 className="text-3xl font-black text-brand-dark leading-tight mb-4">Migración Subterránea: <br/>Rhodotermes</h3>
+                                        <p className="text-gray-500 font-bold leading-relaxed">
+                                            Actualización de barreras químicas ante sismos de baja intensidad y cambios freáticos. Monitoreo acústico incluido.
+                                        </p>
+                                    </div>
+                                    <div className="pt-6 border-t border-gray-200">
+                                        <div className="flex items-center justify-between">
+                                            <span className="text-[10px] font-black uppercase tracking-widest text-gray-400">Próxima Revisión: Mayo</span>
+                                            <ArrowRight className="text-brand-red opacity-0 group-hover:opacity-100 group-hover:translate-x-2 transition-all" size={20} />
+                                        </div>
+                                    </div>
                                 </div>
                             </article>
                         </div>
                     </div>
 
                     {/* Quick Access Card */}
-                    <div className="lg:w-2/5">
-                        <div className="h-full bg-brand-dark rounded-[3rem] p-12 text-white flex flex-col justify-between relative overflow-hidden shadow-3xl">
-                            <div className="absolute top-0 right-0 w-64 h-64 bg-brand-primary/10 rounded-full blur-[80px]" />
+                    <div className="lg:w-1/3 h-full">
+                        <div className="sticky top-32 bg-brand-dark rounded-[3.5rem] p-12 text-white overflow-hidden shadow-3xl group">
+                            <div className="absolute top-0 right-0 w-80 h-80 bg-brand-red/10 rounded-full blur-[100px]" />
                             
-                            <div className="relative z-10 space-y-10">
+                            <div className="relative z-10 space-y-12">
                                 <div>
-                                    <HelpCircle className="text-brand-primary mb-6" size={48} />
-                                    <h3 className="text-4xl font-black leading-tight">Explora Nuestra <br /> Base de Conocimiento</h3>
-                                    <p className="text-gray-400 mt-4 text-lg font-medium leading-relaxed">
-                                        Resolvemos normativas COFEPRIS, seguridad de productos y protocolos de bioseguridad.
+                                    <div className="w-20 h-20 bg-brand-red/20 rounded-3xl flex items-center justify-center text-brand-red mb-10 border border-brand-red/30">
+                                        <HelpCircle size={40} />
+                                    </div>
+                                    <h3 className="text-4xl font-black leading-[1.1] tracking-tighter">Bio-Soporte <br /> Especializado</h3>
+                                    <p className="text-gray-400 mt-6 text-lg font-bold leading-relaxed italic">
+                                        Documentación técnica para auditorías de Sanidad e Higiene.
                                     </p>
                                 </div>
 
-                                <div className="space-y-4">
+                                <div className="space-y-6">
                                     {[
-                                        "Seguridad Petroquímica",
-                                        "Normativa Distintivo H",
-                                        "Garantía Post-Servicio"
+                                        { t: "Fichas de Seguridad (MSDS)", c: "brand-red" },
+                                        { t: "Normativa Distintivo H", c: "gray-400" },
+                                        { t: "Certificados de Bioseguridad", c: "gray-400" }
                                     ].map((item, i) => (
-                                        <div key={i} className="flex items-center gap-3 text-sm font-bold border-b border-white/5 pb-4">
-                                            <ShieldCheck size={18} className="text-brand-primary" />
-                                            {item}
+                                        <div key={i} className="flex items-center gap-4 text-sm font-black uppercase tracking-widest border-b border-white/5 pb-6 last:border-0">
+                                            <div className={`w-2 h-2 rounded-full bg-${item.c}`} />
+                                            {item.t}
                                         </div>
                                     ))}
                                 </div>
-                            </div>
 
-                            <div className="relative z-10 pt-12">
-                                <Link 
-                                    to="/faq"
-                                    className="w-full bg-white text-brand-dark py-5 rounded-2xl font-black uppercase tracking-widest text-sm flex items-center justify-center gap-3 hover:bg-brand-primary hover:text-white transition-all shadow-xl"
-                                >
-                                    Ver todas las dudas <ArrowRight size={20} />
-                                </Link>
+                                <div className="pt-8">
+                                    <Link 
+                                        to="/faq"
+                                        className="w-full bg-brand-red text-white py-6 rounded-2xl font-black uppercase tracking-[0.2em] text-xs flex items-center justify-center gap-4 hover:bg-white hover:text-brand-dark transition-all shadow-2xl shadow-brand-red/20"
+                                    >
+                                        Centro de Ayuda <ArrowRight size={20} />
+                                    </Link>
+                                </div>
                             </div>
                         </div>
                     </div>

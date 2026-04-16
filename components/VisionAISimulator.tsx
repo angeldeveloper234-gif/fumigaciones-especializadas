@@ -26,8 +26,8 @@ const VisionAISimulator: React.FC = () => {
                 <div className="flex flex-col lg:flex-row gap-16 items-center">
                     <div className="lg:w-1/2 space-y-8">
                         <div>
-                            <span className="text-brand-primary font-black uppercase tracking-widest text-xs mb-4 block">Tecnología de Vanguardia</span>
-                            <h2 className="text-5xl font-black text-brand-dark leading-tight">Identificación con <span className="text-brand-primary">Vision AI</span></h2>
+                            <span className="text-brand-red font-black uppercase tracking-widest text-xs mb-4 block">Tecnología de Vanguardia</span>
+                            <h2 className="text-5xl font-black text-brand-dark leading-tight">Identificación con <span className="text-brand-red">Vision AI</span></h2>
                             <p className="text-xl text-gray-500 font-medium leading-relaxed">
                                 ¿Encontraste un insecto y no sabes qué es? Sube una foto y nuestra Inteligencia Artificial lo identificará al instante para sugerirte el tratamiento adecuado.
                             </p>
@@ -50,7 +50,7 @@ const VisionAISimulator: React.FC = () => {
                     </div>
 
                     <div className="lg:w-1/2 w-full">
-                        <div className="relative aspect-square max-w-md mx-auto bg-gray-900 rounded-[3rem] overflow-hidden border-8 border-gray-800 shadow-3xl">
+                        <div className="relative w-full max-w-md mx-auto bg-gray-900 rounded-[3rem] border-8 border-gray-800 shadow-3xl overflow-hidden">
                             <AnimatePresence mode="wait">
                                 {step === 'idle' && (
                                     <motion.div 
@@ -58,15 +58,15 @@ const VisionAISimulator: React.FC = () => {
                                         initial={{ opacity: 0 }}
                                         animate={{ opacity: 1 }}
                                         exit={{ opacity: 0 }}
-                                        className="h-full flex flex-col items-center justify-center p-12 text-center"
+                                        className="min-h-[380px] flex flex-col items-center justify-center p-12 text-center"
                                     >
-                                        <div className="w-24 h-24 bg-brand-primary/20 rounded-full flex items-center justify-center mb-8 border border-brand-primary/30">
-                                            <Camera size={48} className="text-brand-primary" />
+                                        <div className="w-24 h-24 bg-brand-red/20 rounded-full flex items-center justify-center mb-8 border border-brand-red/30">
+                                            <Camera size={48} className="text-brand-red" />
                                         </div>
                                         <h3 className="text-2xl font-black text-white mb-4">Simulador de Escaneo</h3>
                                         <button 
                                             onClick={startScan}
-                                            className="bg-brand-primary hover:bg-red-600 text-white px-8 py-4 rounded-2xl font-black transition-all"
+                                            className="bg-brand-red hover:bg-red-600 text-white px-8 py-4 rounded-2xl font-black transition-all"
                                         >
                                             Iniciar Análisis
                                         </button>
@@ -76,13 +76,13 @@ const VisionAISimulator: React.FC = () => {
                                 {step === 'scanning' && (
                                     <motion.div 
                                         key="scanning"
-                                        className="h-full relative bg-[url('https://images.unsplash.com/photo-1541339907198-e08756eaa539?auto=format&fit=crop&q=80&w=800')] bg-cover bg-center"
+                                        className="min-h-[380px] relative bg-[url('https://images.unsplash.com/photo-1541339907198-e08756eaa539?auto=format&fit=crop&q=80&w=800')] bg-cover bg-center"
                                     >
                                         <div className="absolute inset-0 bg-brand-dark/40" />
                                         <motion.div 
                                             animate={{ top: ['0%', '100%', '0%'] }}
                                             transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-                                            className="absolute left-0 right-0 h-1 bg-brand-primary shadow-[0_0_20px_#e53935] z-10"
+                                            className="absolute left-0 right-0 h-1 bg-brand-red shadow-[0_0_20px_#e53935] z-10"
                                         />
                                         <div className="absolute inset-0 flex items-center justify-center">
                                             <div className="text-center">
@@ -98,7 +98,7 @@ const VisionAISimulator: React.FC = () => {
                                         key="result"
                                         initial={{ scale: 0.9, opacity: 0 }}
                                         animate={{ scale: 1, opacity: 1 }}
-                                        className="h-full p-10 flex flex-col justify-between bg-white"
+                                        className="p-8 flex flex-col gap-6 bg-white"
                                     >
                                         <div>
                                             <div className="flex items-center justify-between mb-8">
@@ -123,7 +123,7 @@ const VisionAISimulator: React.FC = () => {
                                         </div>
 
                                         <div className="space-y-3">
-                                            <button className="w-full bg-brand-primary text-white py-4 rounded-xl font-black transition-all hover:bg-red-600">
+                                            <button className="w-full bg-brand-red text-white py-4 rounded-xl font-black transition-all hover:bg-red-600">
                                                 Agendar tratamiento
                                             </button>
                                             <button 

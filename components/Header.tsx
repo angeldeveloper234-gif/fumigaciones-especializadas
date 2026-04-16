@@ -34,8 +34,8 @@ const Header: React.FC = () => {
             <Link to="/" className="flex-shrink-0 flex items-center gap-2 group">
               <div className="relative">
                 <div className={`flex flex-col leading-none transition-colors duration-300 ${scrolled || !isHome ? 'text-brand-dark' : 'text-white'}`}>
-                  <span className="text-xl font-black tracking-tighter">FUMIGACIONES</span>
-                  <span className="text-[10px] font-black text-brand-primary tracking-[0.4em]">ESPECIALIZADAS</span>
+                  <span className="text-xl font-black tracking-tighter font-display">FUMIGACIONES</span>
+                  <span className="text-[10px] font-black text-brand-red tracking-[0.4em]">ESPECIALIZADAS</span>
                 </div>
               </div>
             </Link>

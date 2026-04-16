@@ -5,6 +5,8 @@ import { BRANCHES, CONTACT_INFO } from '../../constants';
 import { MapPin, Phone, ShieldCheck, Clock, Award } from 'lucide-react';
 import Contact from '../../components/Contact';
 
+import MapCoverage from '../../components/MapCoverage';
+
 const LocationPage: React.FC = () => {
     const { city } = useParams<{ city: string }>();
     const branch = BRANCHES.find(b => b.id === city);
@@ -43,7 +45,7 @@ const LocationPage: React.FC = () => {
 
             <section className="py-24">
                 <div className="container mx-auto px-6">
-                    <div className="grid lg:grid-cols-2 gap-16 items-center">
+                    <div className="grid lg:grid-cols-2 gap-16 items-center mb-24">
                         <div className="space-y-8">
                             <h2 className="text-4xl font-black text-brand-dark">Protegiendo los negocios de {branch.name}</h2>
                             <p className="text-xl text-gray-600 leading-relaxed font-medium">
@@ -104,6 +106,18 @@ const LocationPage: React.FC = () => {
                             </div>
                         </div>
                     </div>
+
+                    {/* New Map Section */}
+                    <div className="space-y-12">
+                        <div className="text-center max-w-3xl mx-auto">
+                            <h2 className="text-4xl font-black text-brand-dark mb-4 tracking-tight">Mapa de Cobertura y Clientes Premium</h2>
+                            <p className="text-lg text-gray-500 font-medium">
+                                Visualice nuestras zonas de respuesta rápida y los establecimientos que confían en nuestro protocolo de fumigación especializada.
+                            </p>
+                        </div>
+                        <MapCoverage center={branch.coords} cityId={branch.id} />
+
+                    </div>
                 </div>
             </section>
 
@@ -113,3 +127,4 @@ const LocationPage: React.FC = () => {
 };
 
 export default LocationPage;
+

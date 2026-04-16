@@ -1,205 +1,431 @@
 import React, { useEffect, useRef, useState } from 'react';
 import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
-import { Target, ShieldCheck, Star, Utensils, MapPin } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { Target, ShieldCheck, Utensils, MapPin, Zap, Clock, ChevronRight, Star } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { BRANCHES, RESTAURANT_CLIENTS } from '../constants';
 
 const MAPBOX_TOKEN = import.meta.env.VITE_MAPBOX_TOKEN;
 
-const BRANCHES = [
-  { name: 'CDMX', center: [-99.1332, 19.4326], zoom: 12 },
-  { name: 'Guadalajara', center: [-103.3916, 20.6668], zoom: 12 },
-  { name: 'Monterrey', center: [-100.3528, 25.6588], zoom: 12 },
-  { name: 'Querétaro', center: [-100.3905, 20.5901], zoom: 12 },
-  { name: 'León', center: [-101.6806, 21.1202], zoom: 12 },
-];
-
-const RESTAURANTS = [
-  // CDMX
-  { name: 'Saks Polanco', city: 'CDMX', coords: [-99.189537, 19.429708] },
-  { name: 'Casamarena', city: 'CDMX', coords: [-99.189427, 19.429243] },
-  { name: 'Ariosto Polanco', city: 'CDMX', coords: [-99.189821, 19.430251] },
-  // GDL
-  { name: 'Casa Macaria', city: 'Guadalajara', coords: [-103.391517, 20.668631] },
-  { name: 'Mediterraneo', city: 'Guadalajara', coords: [-103.391512, 20.668762] },
-  { name: 'Las Originales', city: 'Guadalajara', coords: [-103.391356, 20.668802] },
-  // MTY
-  { name: 'Parrilla Local', city: 'Monterrey', coords: [-100.352849, 25.658854] },
-  { name: 'Very Very Burger', city: 'Monterrey', coords: [-100.352822, 25.658751] },
-  // QRO
-  { name: 'El Gran Torito', city: 'Querétaro', coords: [-100.39041, 20.58968] },
-  { name: 'Gorditas Corregidora', city: 'Querétaro', coords: [-100.390536, 20.590108] },
-  // León
-  { name: 'Fonda 5-300', city: 'León', coords: [-101.680596, 21.120172] },
-  { name: 'Los Armenta', city: 'León', coords: [-101.680306, 21.120574] },
-];
-
 const RestaurantMap: React.FC = () => {
-  const mapContainer = useRef<HTMLDivElement>(null);
-  const map = useRef<mapboxgl.Map | null>(null);
-  const [activeCity, setActiveCity] = useState(BRANCHES[0]);
+    const mapContainer = useRef<HTMLDivElement>(null);
+    const map = useRef<mapboxgl.Map | null>(null);
+    const [activeCity, setActiveCity] = useState(BRANCHES[0]);
+    const [isLoading, setIsLoading] = useState(true);
+    const markersRef = useRef<mapboxgl.Marker[]>([]);
+    const [hoveredRestaurant, setHoveredRestaurant] = useState<string | null>(null);
 
-  useEffect(() => {
-    if (!mapContainer.current) return;
+    const clearIsochrones = () => {
+        if (!map.current) return;
+        [10, 20, 30].forEach(m => {
+            if (map.current?.getLayer(`iso-layer-${m}`)) map.current.removeLayer(`iso-layer-${m}`);
+            if (map.current?.getLayer(`iso-border-${m}`)) map.current.removeLayer(`iso-border-${m}`);
+            if (map.current?.getSource(`isochrone-${m}`)) map.current.removeSource(`isochrone-${m}`);
+        });
+    };
 
-    mapboxgl.accessToken = MAPBOX_TOKEN;
-    
-    map.current = new mapboxgl.Map({
-      container: mapContainer.current,
-      style: 'mapbox://styles/mapbox/dark-v11',
-      center: activeCity.center as [number, number],
-      zoom: activeCity.zoom,
-      attributionControl: false
-    });
+    const fetchIsochrones = async (lng: number, lat: number) => {
+        const minutes = [10, 20, 30];
+        const colors = ['#6abf40', '#bfaa40', '#bf4040'];
 
-    map.current.addControl(new mapboxgl.NavigationControl(), 'top-right');
+        for (let i = 0; i < minutes.length; i++) {
+            const m = minutes[i];
+            const color = colors[i];
+            const url = `https://api.mapbox.com/isochrone/v1/mapbox/driving/${lng},${lat}?contours_minutes=${m}&polygons=true&access_token=${MAPBOX_TOKEN}`;
 
-    RESTAURANTS.forEach((rest) => {
-      // Create a custom marker element
-      const el = document.createElement('div');
-      el.className = 'restaurant-marker';
-      el.innerHTML = `
-        <div class="relative group cursor-pointer">
-          <div class="absolute -inset-4 bg-brand-primary/20 rounded-full blur-xl group-hover:bg-brand-primary/40 transition-all opacity-0 group-hover:opacity-100"></div>
-          <div class="relative w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-2xl border-2 border-brand-primary group-hover:scale-125 transition-transform duration-300">
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#e53935" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg>
-          </div>
-        </div>
-      `;
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
 
-      new mapboxgl.Marker(el)
-        .setLngLat(rest.coords as [number, number])
-        .setPopup(
-          new mapboxgl.Popup({ offset: 25, closeButton: false })
-            .setHTML(`
-              <div class="p-4 bg-brand-dark text-white rounded-xl min-w-[200px]">
-                <p class="text-xs font-black text-brand-primary uppercase tracking-widest mb-1">Restaurante Protegido</p>
-                <h4 class="font-black text-lg mb-2">${rest.name}</h4>
-                <div class="flex items-center gap-2 text-[10px] font-bold text-gray-400 border-t border-white/10 pt-2">
-                  <div class="bg-green-500/20 text-green-500 px-2 py-0.5 rounded-full border border-green-500/30">Certificado COFEPRIS</div>
-                  <div class="bg-brand-primary/20 text-brand-primary px-2 py-0.5 rounded-full">Protocolo FE™</div>
+                if (map.current && map.current.getStyle()) {
+                    map.current.addSource(`isochrone-${m}`, { type: 'geojson', data: data });
+                    map.current.addLayer({
+                        'id': `iso-layer-${m}`,
+                        'type': 'fill',
+                        'source': `isochrone-${m}`,
+                        'paint': { 'fill-color': color, 'fill-opacity': 0.15 }
+                    }, 'add-3d-buildings');
+                    map.current.addLayer({
+                        'id': `iso-border-${m}`,
+                        'type': 'line',
+                        'source': `isochrone-${m}`,
+                        'paint': { 'line-color': color, 'line-width': 2, 'line-dasharray': [2, 1] }
+                    }, 'add-3d-buildings');
+                }
+            } catch (e) {
+                console.error('Error fetching isochrone', e);
+            }
+        }
+    };
+
+    const updateMarkers = (cityId: string) => {
+        markersRef.current.forEach(m => m.remove());
+        markersRef.current = [];
+
+        const currentCity = BRANCHES.find(b => b.id === cityId) || BRANCHES[0];
+
+        // HQ Marker with custom pulse
+        const hqEl = document.createElement('div');
+        hqEl.className = 'hq-marker-v2';
+        hqEl.innerHTML = `
+            <div class="hq-pulse-v2"></div>
+            <div class="hq-icon-v2">
+                <svg viewBox="0 0 24 24" width="20" height="20" stroke="white" stroke-width="3" fill="none"><path d="M3 21h18M3 7v1a3 3 0 0 0 6 0V7m0 1a3 3 0 0 0 6 0V7m0 1a3 3 0 0 0 6 0V7M4 21V10h16v11M9 21V10m6 11V10"></path></svg>
+            </div>
+        `;
+
+        const hqMarker = new mapboxgl.Marker(hqEl)
+            .setLngLat(currentCity.coords as [number, number])
+            .setPopup(new mapboxgl.Popup({ offset: 25 }).setHTML(`
+                <div class="p-2">
+                    <h4 class="font-black text-brand-dark uppercase tracking-tighter">Sede Central ${currentCity.name}</h4>
+                    <p class="text-[10px] text-gray-500 font-bold">Base de Operaciones Estratégicas</p>
                 </div>
-              </div>
-            `)
-        )
-        .addTo(map.current!);
-    });
+            `))
+            .addTo(map.current!);
+        markersRef.current.push(hqMarker);
 
-    return () => map.current?.remove();
-  }, []);
-
-  const flyToCity = (city: typeof BRANCHES[0]) => {
-    setActiveCity(city);
-    map.current?.flyTo({
-      center: city.center as [number, number],
-      zoom: city.zoom,
-      essential: true,
-      duration: 2000
-    });
-  };
-
-  return (
-    <section className="py-24 bg-brand-dark overflow-hidden relative">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="grid lg:grid-cols-3 gap-12 items-center mb-16">
-          <div className="lg:col-span-2">
-             <span className="inline-flex items-center gap-2 bg-brand-primary/10 border border-brand-primary/20 px-4 py-1.5 rounded-full text-brand-primary text-[10px] font-black uppercase tracking-[0.2em] mb-6">
-                <Target size={14} /> Red de Protección Gastronómica
-             </span>
-             <h2 className="text-5xl lg:text-7xl font-black text-white tracking-tighter leading-[0.9] mb-8">
-                Presencia Inmediata en el <br />
-                <span className="text-brand-primary italic">Sector Restaurantero.</span>
-             </h2>
-             <p className="text-xl text-gray-400 font-medium max-w-2xl leading-relaxed">
-                Nuestra cobertura no es un mapa estático; es una red viva de protección. 
-                Más de <span className="text-white font-black underline decoration-brand-primary decoration-4">300 establecimientos</span> confían su seguridad sanitaria en nosotros.
-             </p>
-          </div>
-          
-          <div className="bg-white/5 backdrop-blur-xl border border-white/10 p-8 rounded-[2.5rem] space-y-6">
-             <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-brand-primary/20 rounded-2xl flex items-center justify-center text-brand-primary">
-                    <ShieldCheck size={28} />
+        // Restaurant markers
+        const cityRestaurants = RESTAURANT_CLIENTS[cityId as keyof typeof RESTAURANT_CLIENTS] || [];
+        cityRestaurants.forEach((rest, idx) => {
+            const m = new mapboxgl.Marker({ color: '#E53935', scale: 0.85 })
+                .setLngLat(rest.coords as [number, number])
+                .setPopup(new mapboxgl.Popup({ offset: 25 }).setHTML(`
+                <div class="p-3 max-w-[200px]">
+                  <div class="flex items-center gap-2 mb-2">
+                    <Star size={12} className="text-yellow-500 fill-yellow-500" />
+                    <span class="text-[9px] font-black uppercase tracking-widest text-brand-red">Cliente Certificado</span>
+                  </div>
+                  <strong class="block text-sm font-black text-brand-dark leading-tight mb-1">${rest.name}</strong>
+                  <p class="text-[10px] text-gray-500 font-medium">${rest.address}</p>
+                  <div class="mt-2 pt-2 border-t border-gray-100">
+                    <span class="text-[9px] font-bold text-green-600 bg-green-50 px-2 py-0.5 rounded-full">Protocolo MIP Activo</span>
+                  </div>
                 </div>
-                <div>
-                   <p className="text-white font-black leading-none italic mb-1 uppercase tracking-wider">Blindaje Total</p>
-                   <p className="text-gray-500 text-xs font-bold">Respuesta en <2 horas</p>
-                </div>
-             </div>
-             <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-yellow-500/20 rounded-2xl flex items-center justify-center text-yellow-500">
-                    <Star size={28} />
-                </div>
-                <div>
-                   <p className="text-white font-black leading-none italic mb-1 uppercase tracking-wider">Cero Clausuras</p>
-                   <p className="text-gray-500 text-xs font-bold">100% efectividad en auditorías</p>
-                </div>
-             </div>
-          </div>
-        </div>
+              `))
+                .addTo(map.current!);
 
-        {/* City Selectors */}
-        <div className="flex flex-wrap gap-3 mb-8">
-            {BRANCHES.map((city) => (
-                <button
-                    key={city.name}
-                    onClick={() => flyToCity(city)}
-                    className={`px-6 py-3 rounded-xl font-black text-xs uppercase tracking-widest transition-all duration-300 ${
-                        activeCity.name === city.name 
-                        ? 'bg-brand-primary text-white shadow-xl shadow-brand-primary/30' 
-                        : 'bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white border border-white/10'
-                    }`}
-                >
-                    {city.name}
-                </button>
-            ))}
-        </div>
+            // Interaction to highlight from sidebar is handled via map.flyTo, but 
+            // since we removed the custom DOM element event listeners, we don't bind 
+            // mouseenter/mouseleave directly on the marker element here.
 
-        {/* Map Container */}
-        <div className="relative rounded-[3rem] overflow-hidden border border-white/10 shadow-3xl h-[600px] group">
-            <div ref={mapContainer} className="absolute inset-0 z-0" />
-            
-            {/* Map Overlay info */}
-            <div className="absolute bottom-8 left-8 z-10 pointer-events-none">
-                <div className="bg-brand-dark/80 backdrop-blur-md border border-white/10 p-6 rounded-2xl shadow-2xl transition-all duration-500 group-hover:translate-x-2">
-                    <div className="flex items-center gap-3 mb-2">
-                        <MapPin className="text-brand-primary" size={20} />
-                        <span className="text-white font-black text-lg tracking-tight">{activeCity.name}</span>
+            markersRef.current.push(m);
+        });
+    };
+
+    useEffect(() => {
+        if (!mapContainer.current) return;
+        mapboxgl.accessToken = MAPBOX_TOKEN;
+
+        map.current = new mapboxgl.Map({
+            container: mapContainer.current,
+            style: 'mapbox://styles/mapbox/dark-v11',
+            center: activeCity.coords as [number, number],
+            zoom: 13,
+            pitch: 60,
+            bearing: -20,
+            antialias: true,
+            attributionControl: false
+        });
+
+        map.current.on('load', async () => {
+            if (!map.current) return;
+            setIsLoading(false);
+
+            // Add 3D buildings layer
+            map.current.addLayer({
+                'id': 'add-3d-buildings',
+                'source': 'composite',
+                'source-layer': 'building',
+                'filter': ['==', 'extrude', 'true'],
+                'type': 'fill-extrusion',
+                'minzoom': 15,
+                'paint': {
+                    'fill-extrusion-color': '#222',
+                    'fill-extrusion-height': ['get', 'height'],
+                    'fill-extrusion-base': ['get', 'min_height'],
+                    'fill-extrusion-opacity': 0.8
+                }
+            });
+
+            await fetchIsochrones(activeCity.coords[0], activeCity.coords[1]);
+            updateMarkers(activeCity.id);
+            map.current?.resize();
+        });
+
+        const resizeObserver = new ResizeObserver(() => {
+            map.current?.resize();
+        });
+        if (mapContainer.current) {
+            resizeObserver.observe(mapContainer.current);
+        }
+
+        return () => {
+            resizeObserver.disconnect();
+            map.current?.remove();
+        };
+    }, []);
+
+    const handleCityChange = async (city: typeof BRANCHES[0]) => {
+        if (!map.current) return;
+        setActiveCity(city);
+        map.current.flyTo({
+            center: city.coords as [number, number],
+            zoom: 13.5,
+            pitch: 60,
+            duration: 3000,
+            essential: true
+        });
+
+        clearIsochrones();
+        await fetchIsochrones(city.coords[0], city.coords[1]);
+        updateMarkers(city.id);
+    };
+
+    const focusOnRestaurant = (rest: any) => {
+        if (!map.current) return;
+        map.current.flyTo({
+            center: rest.coords,
+            zoom: 17,
+            pitch: 75,
+            duration: 2000
+        });
+    };
+
+    return (
+        <section className="py-24 bg-brand-dark overflow-hidden relative">
+            {/* Background elements */}
+            <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-brand-red/5 to-transparent pointer-events-none" />
+
+            <div className="max-w-7xl mx-auto px-6 relative z-10">
+                <div className="grid lg:grid-cols-12 gap-12 items-end mb-16">
+                    <div className="lg:col-span-8">
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.8 }}
+                        >
+                            <span className="inline-flex items-center gap-2 bg-brand-red/10 border border-brand-red/20 px-4 py-1.5 rounded-full text-brand-red text-[10px] font-black uppercase tracking-[0.2em] mb-6">
+                                <Target size={14} /> Red de Protección Premium
+                            </span>
+                            <h2 className="text-6xl lg:text-8xl font-black text-white tracking-tighter leading-[0.85] mb-8">
+                                Blindaje Local. <br />
+                                <span className="text-brand-red italic truncate">Presencia Real.</span>
+                            </h2>
+                            <p className="text-xl text-gray-400 font-medium max-w-2xl leading-relaxed">
+                                Explore nuestra infraestructura operativa. Hemos mapeado nuestras <span className="text-white font-black italic">zonas de respuesta crítica</span> y los establecimientos de alta cocina que confían en nuestro protocolo de seguridad sanitaria.
+                            </p>
+                        </motion.div>
                     </div>
-                    <p className="text-gray-400 text-[10px] font-bold uppercase tracking-widest leading-loose">
-                        Zona de Operatividad Prioritaria <br />
-                        <span className="text-brand-primary">Unidades Activas: 12</span>
-                    </p>
+
+                    <div className="lg:col-span-4 lg:text-right">
+                        <div className="inline-grid grid-cols-2 gap-4">
+                            <div className="p-4 bg-white/5 border border-white/10 rounded-2xl text-left">
+                                <Zap className="text-brand-red mb-2" size={24} />
+                                <p className="text-white font-black text-xl leading-none">90 min</p>
+                                <p className="text-gray-500 text-[10px] font-bold uppercase mt-1">SLA Promedio</p>
+                            </div>
+                            <div className="p-4 bg-white/5 border border-white/10 rounded-2xl text-left">
+                                <ShieldCheck className="text-brand-red mb-2" size={24} />
+                                <p className="text-white font-black text-xl leading-none">100%</p>
+                                <p className="text-gray-500 text-[10px] font-bold uppercase mt-1">Cumplimiento</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="flex flex-col-reverse lg:grid lg:grid-cols-12 gap-8" style={{ minHeight: '700px', height: '800px' }}>
+                    {/* Sidebar: City & Restaurant List */}
+                    <div className="lg:col-span-3 flex flex-col gap-6 h-full">
+                        {/* City Selector */}
+                        <div className="bg-white/5 backdrop-blur-md border border-white/10 p-2 rounded-[2rem] flex flex-col gap-1 overflow-hidden">
+                            {BRANCHES.map((city) => (
+                                <button
+                                    key={city.id}
+                                    onClick={() => handleCityChange(city)}
+                                    className={`flex items-center justify-between px-6 py-4 rounded-3xl font-black text-[10px] uppercase tracking-widest transition-all duration-300 ${activeCity.id === city.id
+                                            ? 'bg-brand-red text-white shadow-xl shadow-brand-red/20 scale-[1.02]'
+                                            : 'text-gray-500 hover:text-white hover:bg-white/5'
+                                        }`}
+                                >
+                                    {city.name}
+                                    <ChevronRight size={14} className={activeCity.id === city.id ? 'opacity-100' : 'opacity-0'} />
+                                </button>
+                            ))}
+                        </div>
+
+                        {/* Restaurant List */}
+                        <div className="flex-1 bg-white/5 backdrop-blur-md border border-white/10 rounded-[2.5rem] p-6 overflow-y-auto custom-scrollbar" style={{ maxHeight: '520px' }}>
+                            <div className="flex items-center gap-2 mb-6 text-white">
+                                <Utensils size={18} className="text-brand-red" />
+                                <h4 className="font-black text-xs uppercase tracking-[0.2em]">Clientes en {activeCity.name}</h4>
+                            </div>
+                            <div className="space-y-3">
+                                {RESTAURANT_CLIENTS[activeCity.id as keyof typeof RESTAURANT_CLIENTS]?.map((rest, idx) => (
+                                    <motion.div
+                                        key={idx}
+                                        initial={{ opacity: 0, x: -10 }}
+                                        animate={{ opacity: 1, x: 0 }}
+                                        transition={{ delay: idx * 0.1 }}
+                                        onClick={() => focusOnRestaurant(rest)}
+                                        onMouseEnter={() => setHoveredRestaurant(rest.name)}
+                                        onMouseLeave={() => setHoveredRestaurant(null)}
+                                        className={`p-4 rounded-2xl border transition-all duration-300 cursor-pointer group ${hoveredRestaurant === rest.name
+                                                ? 'bg-brand-red border-brand-red shadow-lg'
+                                                : 'bg-white/5 border-white/5 hover:border-white/20'
+                                            }`}
+                                    >
+                                        <div className="flex justify-between items-start mb-1">
+                                            <p className={`font-black text-sm transition-colors ${hoveredRestaurant === rest.name ? 'text-white' : 'text-gray-200'}`}>
+                                                {rest.name}
+                                            </p>
+                                            <Star size={12} className={hoveredRestaurant === rest.name ? 'text-white' : 'text-yellow-500'} />
+                                        </div>
+                                        <p className={`text-[10px] font-medium leading-tight ${hoveredRestaurant === rest.name ? 'text-white/70' : 'text-gray-500'}`}>
+                                            {rest.address}
+                                        </p>
+                                    </motion.div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Main Map Interface */}
+                    <div className="lg:col-span-9 relative rounded-[3.5rem] overflow-hidden border-8 border-white/5 shadow-3xl group bg-black h-[480px] lg:h-full w-full">
+                        {isLoading && (
+                            <div className="absolute inset-0 z-50 flex items-center justify-center bg-brand-dark">
+                                <motion.div
+                                    animate={{ rotate: 360 }}
+                                    transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                                    className="w-16 h-16 border-4 border-brand-red border-t-transparent rounded-full"
+                                />
+                            </div>
+                        )}
+                        <div ref={mapContainer} className="absolute inset-0 z-0 w-full h-full grayscale-[0.2] hover:grayscale-0 transition-all duration-1000" />
+
+                        {/* Overlays */}
+                        <div className="absolute inset-0 pointer-events-none bg-gradient-to-b from-brand-dark/40 via-transparent to-brand-dark/40" />
+
+                        {/* Floating Legend — desktop only */}
+                        <div className="hidden lg:block absolute bottom-8 right-8 z-10 w-full max-w-xs pointer-events-auto">
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                className="bg-brand-dark/90 backdrop-blur-xl p-8 rounded-[2.5rem] border border-white/10 shadow-2xl space-y-6"
+                            >
+                                <div className="flex items-center gap-3 pb-4 border-b border-white/10">
+                                    <Clock size={20} className="text-brand-red" />
+                                    <div>
+                                        <p className="text-white font-black text-xs uppercase tracking-widest">Protocolo Express</p>
+                                        <p className="text-gray-500 text-[9px] font-bold">Respuesta Técnica por Zona</p>
+                                    </div>
+                                </div>
+                                <div className="space-y-4">
+                                    <div className="flex items-center justify-between">
+                                        <div className="flex items-center gap-3">
+                                            <div className="w-3 h-3 rounded-full bg-[#6abf40]" />
+                                            <span className="text-white text-[10px] font-black uppercase tracking-tighter">10 MIN - CRÍTICO</span>
+                                        </div>
+                                        <span className="text-white/40 text-[9px] font-bold">Radio local</span>
+                                    </div>
+                                    <div className="flex items-center justify-between">
+                                        <div className="flex items-center gap-3">
+                                            <div className="w-3 h-3 rounded-full bg-[#bfaa40]" />
+                                            <span className="text-white text-[10px] font-black uppercase tracking-tighter">20 MIN - PRIORIDAD</span>
+                                        </div>
+                                        <span className="text-white/40 text-[9px] font-bold">Zona Urbana</span>
+                                    </div>
+                                    <div className="flex items-center justify-between">
+                                        <div className="flex items-center gap-3">
+                                            <div className="w-3 h-3 rounded-full bg-[#bf4040]" />
+                                            <span className="text-white text-[10px] font-black uppercase tracking-tighter">30 MIN - ESTÁNDAR</span>
+                                        </div>
+                                        <span className="text-white/40 text-[9px] font-bold">Periferia</span>
+                                    </div>
+                                </div>
+                            </motion.div>
+                        </div>
+
+                        {/* Active HQ Badge */}
+                        <div className="absolute top-8 left-8 z-10">
+                            <div className="bg-brand-red text-white pl-6 pr-8 py-4 rounded-3xl shadow-2xl flex items-center gap-4 border-l-4 border-white/30">
+                                <div className="w-10 h-10 bg-white/20 rounded-2xl flex items-center justify-center animate-pulse">
+                                    <MapPin size={20} />
+                                </div>
+                                <div>
+                                    <p className="text-2xl font-black leading-none tracking-tighter uppercase">{activeCity.name}</p>
+                                    <p className="text-[9px] font-bold uppercase tracking-[0.2em] opacity-80 mt-1">Sede de Operaciones Activa</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            {/* Floating Interaction Invite */}
-            <div className="absolute top-8 left-8 z-10 pointer-events-none">
-                <div className="flex items-center gap-4 px-4 py-2 bg-black/40 backdrop-blur-sm rounded-full border border-white/10 text-[10px] text-white font-bold uppercase tracking-widest animate-pulse">
-                    <Utensils size={14} className="text-brand-primary" />
-                    Explora los puntos de protección gastronómica
-                </div>
-            </div>
-        </div>
-      </div>
-      
-      <style>{`
-        .restaurant-marker {
-          perspective: 1000px;
-        }
-        .mapboxgl-popup-content {
-          background: transparent !important;
-          padding: 0 !important;
-          border-radius: 1.5rem !important;
-          box-shadow: none !important;
-        }
-        .mapboxgl-popup-tip {
-          border-top-color: #1a1a1a !important;
-          display: none;
-        }
-      `}</style>
-    </section>
-  );
+            <style>{`
+                .custom-scrollbar::-webkit-scrollbar {
+                    width: 4px;
+                }
+                .custom-scrollbar::-webkit-scrollbar-track {
+                    background: transparent;
+                }
+                .custom-scrollbar::-webkit-scrollbar-thumb {
+                    background: rgba(255,255,255,0.1);
+                    border-radius: 10px;
+                }
+                .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+                    background: rgba(229,57,53,0.5);
+                }
+
+                .mapboxgl-popup-content {
+                    background: white !important;
+                    padding: 0 !important;
+                    border-radius: 24px !important;
+                    box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5) !important;
+                    border: none !important;
+                    overflow: hidden;
+                }
+                .mapboxgl-popup-tip {
+                    display: none;
+                }
+
+                /* HQ Marker v2 */
+                .hq-marker-v2 {
+                    position: relative;
+                    width: 60px;
+                    height: 60px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+                .hq-icon-v2 {
+                    position: relative;
+                    z-index: 2;
+                    width: 40px;
+                    height: 40px;
+                    background: #E53935;
+                    border: 4px solid white;
+                    border-radius: 16px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    box-shadow: 0 10px 25px rgba(229,57,53,0.5);
+                }
+                .hq-pulse-v2 {
+                    position: absolute;
+                    inset: 0;
+                    background: #E53935;
+                    border-radius: 50%;
+                    opacity: 0.3;
+                    animation: hq-pulse-v2 2s infinite;
+                }
+                @keyframes hq-pulse-v2 {
+                    0% { transform: scale(0.6); opacity: 0.8; }
+                    100% { transform: scale(1.8); opacity: 0; }
+                }
+            `}</style>
+        </section>
+    );
 };
 
 export default RestaurantMap;
