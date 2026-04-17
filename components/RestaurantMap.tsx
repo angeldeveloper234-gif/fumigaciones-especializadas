@@ -151,6 +151,9 @@ const RestaurantMap: React.FC = () => {
             await fetchIsochrones(activeCity.coords[0], activeCity.coords[1]);
             updateMarkers(activeCity.id);
             map.current?.resize();
+            // Explicit resize pulses after rendering
+            setTimeout(() => map.current?.resize(), 100);
+            setTimeout(() => map.current?.resize(), 500);
         });
 
         const resizeObserver = new ResizeObserver(() => {
@@ -160,8 +163,20 @@ const RestaurantMap: React.FC = () => {
             resizeObserver.observe(mapContainer.current);
         }
 
+        const intersectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    map.current?.resize();
+                }
+            });
+        });
+        if (mapContainer.current) {
+            intersectionObserver.observe(mapContainer.current);
+        }
+
         return () => {
             resizeObserver.disconnect();
+            intersectionObserver.disconnect();
             map.current?.remove();
         };
     }, []);
@@ -208,7 +223,7 @@ const RestaurantMap: React.FC = () => {
                             <span className="inline-flex items-center gap-2 bg-brand-red/10 border border-brand-red/20 px-4 py-1.5 rounded-full text-brand-red text-[10px] font-black uppercase tracking-[0.2em] mb-6">
                                 <Target size={14} /> Red de Protección Premium
                             </span>
-                            <h2 className="text-6xl lg:text-8xl font-black text-white tracking-tighter leading-[0.85] mb-8">
+                            <h2 className="text-4xl lg:text-7xl font-black text-white tracking-tighter leading-[0.85] mb-8">
                                 Blindaje Local. <br />
                                 <span className="text-brand-red italic truncate">Presencia Real.</span>
                             </h2>
@@ -219,7 +234,7 @@ const RestaurantMap: React.FC = () => {
                     </div>
 
                     <div className="lg:col-span-4 lg:text-right">
-                        <div className="inline-grid grid-cols-2 gap-4">
+                        <div className="grid grid-cols-2 lg:inline-grid gap-4 w-full lg:w-auto">
                             <div className="p-4 bg-white/5 border border-white/10 rounded-2xl text-left">
                                 <Zap className="text-brand-red mb-2" size={24} />
                                 <p className="text-white font-black text-xl leading-none">90 min</p>
@@ -234,9 +249,9 @@ const RestaurantMap: React.FC = () => {
                     </div>
                 </div>
 
-                <div className="flex flex-col-reverse lg:grid lg:grid-cols-12 gap-8" style={{ minHeight: '700px', height: '800px' }}>
+                <div className="flex flex-col lg:grid lg:grid-cols-12 gap-8 lg:min-h-[700px] lg:h-[800px]">
                     {/* Sidebar: City & Restaurant List */}
-                    <div className="lg:col-span-3 flex flex-col gap-6 h-full">
+                    <div className="lg:col-span-3 flex flex-col gap-6 lg:h-full order-last lg:order-none">
                         {/* City Selector */}
                         <div className="bg-white/5 backdrop-blur-md border border-white/10 p-2 rounded-[2rem] flex flex-col gap-1 overflow-hidden">
                             {BRANCHES.map((city) => (
@@ -291,7 +306,7 @@ const RestaurantMap: React.FC = () => {
                     </div>
 
                     {/* Main Map Interface */}
-                    <div className="lg:col-span-9 relative rounded-[3.5rem] overflow-hidden border-8 border-white/5 shadow-3xl group bg-black h-[480px] lg:h-full w-full">
+                    <div className="lg:col-span-9 relative rounded-[2rem] lg:rounded-[3.5rem] overflow-hidden border-8 border-white/5 shadow-3xl group bg-black h-[480px] lg:h-full w-full order-first lg:order-none">
                         {isLoading && (
                             <div className="absolute inset-0 z-50 flex items-center justify-center bg-brand-dark">
                                 <motion.div
@@ -429,3 +444,4 @@ const RestaurantMap: React.FC = () => {
 };
 
 export default RestaurantMap;
+

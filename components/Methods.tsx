@@ -12,7 +12,7 @@ const Methods: React.FC = () => {
         <div className="mb-24 flex flex-col lg:flex-row justify-between items-start lg:items-end gap-12">
           <div className="max-w-3xl">
             <span className="text-brand-red font-black tracking-widest uppercase text-xs mb-4 block">Manejo Integrado de Plagas (MIP)</span>
-            <h2 className="text-5xl lg:text-7xl font-black tracking-tighter leading-none mb-6">
+            <h2 className="text-4xl lg:text-6xl font-black tracking-tighter leading-none mb-6">
                 Ingeniería en <span className="text-brand-red">Bioseguridad</span>
             </h2>
             <p className="text-gray-400 text-xl font-medium leading-relaxed">

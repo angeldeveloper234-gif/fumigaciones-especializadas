@@ -116,7 +116,7 @@ const InteractiveDiagnostic: React.FC = () => {
               <span className="inline-block py-1 px-3 rounded-full bg-brand-yellow/20 text-brand-yellow font-black tracking-widest uppercase text-xs mb-4">
                 Inteligencia Preventiva
               </span>
-              <h2 className="text-4xl lg:text-5xl font-black text-white leading-tight">
+              <h2 className="text-3xl lg:text-5xl font-black text-white leading-tight">
                 Identifica tu Plaga <br />
                 <span className="text-brand-red">con IA FE™</span>
               </h2>
@@ -299,3 +299,4 @@ const InteractiveDiagnostic: React.FC = () => {
 };
 
 export default InteractiveDiagnostic;
+

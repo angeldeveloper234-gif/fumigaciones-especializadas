@@ -12,7 +12,7 @@ const Services: React.FC = () => {
             <span className="inline-block py-1 px-4 rounded-full bg-brand-red/10 text-brand-red font-black tracking-widest uppercase text-[10px] mb-6 border border-brand-red/20">
               Silos de Especialización
             </span>
-            <h2 className="text-5xl lg:text-7xl font-black text-brand-dark tracking-tighter leading-[0.9]">
+            <h2 className="text-4xl lg:text-6xl font-black text-brand-dark tracking-tighter leading-[0.9]">
               Nuestras <span className="text-brand-red">Soluciones</span> <br /> 
               Certificadas FE™
             </h2>

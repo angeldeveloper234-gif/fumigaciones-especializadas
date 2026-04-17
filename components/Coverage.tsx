@@ -211,7 +211,7 @@ const Coverage: React.FC = () => {
                             <span className="inline-flex items-center gap-2 bg-brand-red/10 text-brand-red px-5 py-2 rounded-full font-black tracking-widest uppercase text-[10px] border border-brand-red/20 shadow-sm">
                                 <MapIcon size={14} /> Red Operativa Nacional
                             </span>
-                            <h2 className="text-5xl lg:text-7xl font-black text-brand-dark leading-[0.85] tracking-tighter">
+                            <h2 className="text-4xl lg:text-6xl font-black text-brand-dark leading-[0.85] tracking-tighter">
                                 Presencia Real. <br />
                                 <span className="text-brand-red italic truncate">Impacto Local.</span>
                             </h2>

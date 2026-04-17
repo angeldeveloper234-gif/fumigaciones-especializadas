@@ -50,7 +50,7 @@ const AboutUs: React.FC = () => {
                             <span className="inline-flex items-center gap-2 py-1.5 px-4 rounded-full bg-brand-red/10 text-brand-red font-black tracking-[0.2em] uppercase text-[10px] mb-6 border border-brand-red/20">
                                 <ShieldCheck size={14} /> Elite Pest Protection
                             </span>
-                            <h2 className="text-5xl lg:text-7xl font-black text-brand-dark tracking-tighter leading-[0.9] mb-8">
+                            <h2 className="text-4xl lg:text-6xl font-black text-brand-dark tracking-tighter leading-[0.9] mb-8">
                                 Tu negocio en <br />
                                 <span className="text-brand-red">Manos Científicas.</span>
                             </h2>
@@ -95,3 +95,4 @@ const AboutUs: React.FC = () => {
 };
 
 export default AboutUs;
+

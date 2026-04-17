@@ -18,8 +18,8 @@ const CostCalculator: React.FC = () => {
     return (
         <section className="py-24 bg-gray-50 border-y border-gray-100">
             <div className="container mx-auto px-6">
-                <div className="max-w-5xl mx-auto bg-white rounded-[3rem] shadow-2xl overflow-hidden grid lg:grid-cols-2">
-                    <div className="p-12 lg:p-16 space-y-8">
+                <div className="max-w-5xl mx-auto bg-white rounded-[3rem] shadow-2xl overflow-hidden grid grid-cols-1 lg:grid-cols-2">
+                    <div className="p-8 lg:p-16 space-y-8">
                         <div>
                             <span className="text-brand-red font-black uppercase tracking-widest text-xs mb-4 block">Herramienta de Diagnóstico</span>
                             <h2 className="text-4xl font-black text-brand-dark leading-tight">Cotizador Instantáneo</h2>
@@ -52,7 +52,7 @@ const CostCalculator: React.FC = () => {
                         </div>
                     </div>
 
-                    <div className="bg-brand-dark p-12 lg:p-16 text-white flex flex-col justify-between">
+                    <div className="bg-brand-dark p-8 lg:p-16 text-white flex flex-col justify-between">
                         <div>
                             <div className="flex items-center gap-3 text-brand-red mb-8">
                                 <Calculator />
@@ -60,7 +60,7 @@ const CostCalculator: React.FC = () => {
                             </div>
                             
                             <div className="space-y-2">
-                                <span className="text-7xl font-black text-white leading-none">
+                                <span className="text-5xl md:text-7xl font-black text-white leading-none break-words">
                                     ${estimate > 0 ? estimate.toLocaleString() : '---'}
                                 </span>
                                 <span className="text-xl text-gray-400 font-bold ml-2">MXN</span>

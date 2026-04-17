@@ -12,7 +12,7 @@ const Certifications: React.FC = () => {
               <span className="inline-block bg-brand-red/10 text-brand-red px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest mb-6 border border-brand-red/20">
                  Validación Oficial COFEPRIS
               </span>
-              <h2 className="text-5xl lg:text-7xl font-black text-brand-dark tracking-tighter leading-none mb-8">
+              <h2 className="text-4xl lg:text-6xl font-black text-brand-dark tracking-tighter leading-none mb-8">
                 Autoridad en <br />
                 <span className="text-brand-red">Bioseguridad</span>
               </h2>

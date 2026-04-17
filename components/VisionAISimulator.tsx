@@ -27,7 +27,7 @@ const VisionAISimulator: React.FC = () => {
                     <div className="lg:w-1/2 space-y-8">
                         <div>
                             <span className="text-brand-red font-black uppercase tracking-widest text-xs mb-4 block">Tecnología de Vanguardia</span>
-                            <h2 className="text-5xl font-black text-brand-dark leading-tight">Identificación con <span className="text-brand-red">Vision AI</span></h2>
+                            <h2 className="text-3xl lg:text-5xl font-black text-brand-dark leading-tight">Identificación con <span className="text-brand-red">Vision AI</span></h2>
                             <p className="text-xl text-gray-500 font-medium leading-relaxed">
                                 ¿Encontraste un insecto y no sabes qué es? Sube una foto y nuestra Inteligencia Artificial lo identificará al instante para sugerirte el tratamiento adecuado.
                             </p>
@@ -145,3 +145,4 @@ const VisionAISimulator: React.FC = () => {
 };
 
 export default VisionAISimulator;
+

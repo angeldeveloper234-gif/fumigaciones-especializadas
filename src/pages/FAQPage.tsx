@@ -31,7 +31,7 @@ const FAQPage: React.FC = () => {
             <div className="container mx-auto px-6">
                 <div className="max-w-3xl mx-auto">
                     <div className="text-center mb-16">
-                        <h1 className="text-4xl md:text-5xl font-black text-brand-dark mb-4">Preguntas Frecuentes</h1>
+                        <h1 className="text-3xl lg:text-5xl font-black text-brand-dark mb-4">Preguntas Frecuentes</h1>
                         <p className="text-xl text-gray-600">Resolvemos tus dudas sobre seguridad, tiempos y normativas.</p>
                     </div>
 
@@ -74,3 +74,4 @@ const FAQPage: React.FC = () => {
 };
 
 export default FAQPage;
+
