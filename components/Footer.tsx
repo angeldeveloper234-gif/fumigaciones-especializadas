@@ -63,10 +63,23 @@ const Footer: React.FC = () => {
         </div>
 
         <div className="pt-12 flex flex-col md:flex-row justify-between items-center gap-8">
-          <p className="text-[10px] text-white/30 font-black uppercase tracking-widest text-center md:text-left">
-            &copy; {new Date().getFullYear()} Fumigaciones y Desinfecciones Especializadas S.A. de C.V. <br/>
-            Seguridad Sanitaria Garantizada por FE™
-          </p>
+          <div className="space-y-4 text-center md:text-left">
+            <p className="text-[10px] text-white/30 font-black uppercase tracking-widest">
+              &copy; {new Date().getFullYear()} Fumigaciones y Desinfecciones Especializadas S.A. de C.V. <br/>
+              Seguridad Sanitaria Garantizada por FE™
+            </p>
+            <p className="text-[10px] text-white/20 font-black uppercase tracking-widest">
+              Hecho por{' '}
+              <a 
+                href="https://www.angelstudio.design/" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="hover:text-brand-red transition-colors"
+              >
+                Angel Design Studio
+              </a>
+            </p>
+          </div>
           <div className="flex gap-8 text-[10px] font-black uppercase tracking-widest text-white/30">
               <button className="hover:text-brand-red transition-colors">Aviso de Privacidad</button>
               <button className="hover:text-brand-red transition-colors">Términos del Servicio</button>
